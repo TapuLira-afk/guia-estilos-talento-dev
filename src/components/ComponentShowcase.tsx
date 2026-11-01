@@ -1,3 +1,4 @@
+const assetPathPrefix = `${import.meta.env.BASE_URL}assets`
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -191,11 +192,7 @@ export function ComponentShowcase() {
                 data-technology={icon}
                 key={technology}
               >
-                <img
-                  src={`/assets/technologies/${icon}.svg`}
-                  alt=""
-                  aria-hidden="true"
-                />
+                <img src={`${assetPathPrefix}/technologies/${icon}.svg`} alt="" aria-hidden="true" />
                 {technology}
               </span>
             ))}
