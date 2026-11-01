@@ -1,4 +1,4 @@
-# README para Guía de Estilo Talento.Dev
+# Guía de Estilo Talento.Dev
 
 ## Descripción
 
@@ -66,6 +66,6 @@ guia-estilos-talento-dev/
 
 La aplicación se ejecutará en el puerto especificado por `$PORT` (por defecto 8443) y estará disponible para ser vista en el panel de previsualización.
 
-## Autora
+## Autores
 
 Talento.Dev - Equipo de Desarrollo
