@@ -1,0 +1,14 @@
+{
+  "title": "Guia de estilos - Talento.Dev",
+  "description": "Crea y organiza una guía de estilos para definir colores, tipografías y componentes visuales de forma coherente.",
+  "robots": {
+    "index": false
+  },
+  "icons": {
+    "icon": "/.figma/make/favicon.png"
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
