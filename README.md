@@ -66,10 +66,6 @@ guia-estilos-talento-dev/
 
 La aplicación se ejecutará en el puerto especificado por `$PORT` (por defecto 8443) y estará disponible para ser vista en el panel de previsualización.
 
-## Autor
+## Autora
 
 Talento.Dev - Equipo de Desarrollo
-
-## Licencia
-
-Este proyecto está bajo licencia MIT. 
