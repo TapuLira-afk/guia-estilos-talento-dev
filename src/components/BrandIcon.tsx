@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-const assetPathPrefix = "/assets"
+const assetPathPrefix = `${import.meta.env.BASE_URL}assets`
 const imgPenguinBody = `${assetPathPrefix}/17594.svg`
 const imgEyes = `${assetPathPrefix}/2c7d7.svg`
 const imgBeak = `${assetPathPrefix}/a9d74.svg`
@@ -123,6 +123,6 @@ export function useProfileFavicon(profile: string) {
         link.type = "image/png"
         link.href = cv.toDataURL("image/png")
       })
-      .catch(() => {})
+      .catch(() => { })
   }, [profile])
 }
