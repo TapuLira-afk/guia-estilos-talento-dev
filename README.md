@@ -16,7 +16,7 @@ Guía de estilo interactiva de **Talento.Dev**, una plataforma de gestión de ta
 
 ## Estructura del Proyecto
 
-```
+```text
 guia-estilos-talento-dev/
 ├── public/
 │   ├── assets/               # Iconos SVG de marca y tecnologías
@@ -44,7 +44,7 @@ guia-estilos-talento-dev/
 ## Tecnologías
 
 | Tecnología | Versión | Uso |
-|---|---|---|
+| --- | --- | --- |
 | React | 19 | UI declarativa |
 | Vite | 8 | Dev server y build |
 | Tailwind CSS | 4 | Utilidades CSS (vía `@tailwindcss/vite`) |
@@ -55,7 +55,7 @@ guia-estilos-talento-dev/
 ## Scripts disponibles
 
 | Comando | Descripción |
-|---|---|
+| --- | --- |
 | `pnpm dev` | Inicia el servidor de desarrollo (hot-reload) |
 | `pnpm build` | Build de producción para `dist/` |
 | `pnpm preview` | Previsualiza el build de producción |
@@ -79,7 +79,7 @@ En el contexto de **Figma Make** el servidor de Vite ya está corriendo y se acc
 ## Secciones de la guía
 
 | # | Sección | Contenido |
-|---|---|---|
+| --- | --- | --- |
 | 01 | Fundamentos | Identidad, datos académicos, principios de diseño |
 | 02 | Color | Paletas por perfil (primarios, secundarios, neutros) con copiado hex |
 | 03 | Tipografía | Escala tipográfica, Playfair Display e Inter |
