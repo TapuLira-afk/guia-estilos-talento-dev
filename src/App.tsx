@@ -438,15 +438,13 @@ export default function App() {
               <div key={t.level}>
                 <span>{t.level}</span>
                 <strong
-                  className={`${
-                    t.serif ? "font-serif-sample" : "font-sans-sample"
-                  } ${
-                    t.level === "Enlace"
+                  className={`${t.serif ? "font-serif-sample" : "font-sans-sample"
+                    } ${t.level === "Enlace"
                       ? "type-link"
                       : t.level === "Texto secundario"
                         ? "type-muted"
                         : ""
-                  }`}
+                    }`}
                   style={{
                     fontSize: t.size,
                     lineHeight: `${t.line}px`,
@@ -587,7 +585,7 @@ export default function App() {
                   {[
                     ["Principal", p.primary],
                     ["Acento", p.accent],
-                    ["Suave", p.soft],
+                    ["Secundario", p.soft],
                   ].map(([label, value]) => (
                     <span key={label}>
                       <i style={{ background: value }} />
