@@ -81,6 +81,9 @@ h1 em { color: var(--coral); font-weight: 400; }
 .identity-block, .project-details { margin-top: 64px; }
 .identity-block h2, .project-details h2 { font-family: var(--serif); font-size: 26px; font-weight: 600; margin: 0 0 24px; }
 .participant-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.usage-table { min-width: 640px; }
+.usage-table tbody th { width: 24%; }
+.usage-table td { height: 52px; }
 .identity-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; }
 .identity-table { width: 100%; border-collapse: collapse; font-size: 12px; line-height: 1.7; text-align: left; }
 .identity-table th, .identity-table td { padding: 18px; vertical-align: top; border-bottom: 1px solid var(--line); }
@@ -174,6 +177,7 @@ h1 em { color: var(--coral); font-weight: 400; }
 .available { --state-color: var(--success); }
 .considering { --state-color: var(--warning); }
 .unavailable { --state-color: var(--error); }
+.info { --state-color: #2f6690; }
 .availability { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; padding: 10px 12px; border: 1px solid color-mix(in srgb, var(--state-color) 30%, var(--paper)); border-radius: 30px; background: color-mix(in srgb, var(--state-color) 8%, var(--paper)); }
 .availability i { width: 8px; height: 8px; background: var(--state-color); border-radius: 50%; }
 .message-list { display: grid; gap: 14px; margin-top: 24px; }
@@ -289,7 +293,7 @@ footer a span { color: rgba(255,255,255,.75); }
   .brand-meta { display: inline; }
   main { margin-left: 0; overflow: visible; }
   section, .hero { max-width: none; padding: 28px 0; }
-  #color, #tipografía, #espaciado, #componentes, #perfiles,
+  #color, #tipografía, #espaciado, #componentes, #criterios-de-uso, #perfiles,
   .hero > .identity-block + .identity-block { break-before: page; }
   .hero > .identity-block + .identity-block { padding-top: 24px; margin-top: 0; }
   .hero-grid { margin-top: 24px; }

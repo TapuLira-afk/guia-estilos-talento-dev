@@ -1,4 +1,5 @@
 const assetPathPrefix = `${import.meta.env.BASE_URL}assets`
+
 function ArrowIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -164,6 +165,13 @@ export function ComponentShowcase() {
               <div>
                 <strong>Revisa los datos</strong>
                 <p>Completa los campos obligatorios antes de continuar.</p>
+              </div>
+            </div>
+            <div className="demo-message info">
+              <span aria-hidden="true">i</span>
+              <div>
+                <strong>Nueva oferta disponible</strong>
+                <p>Hay ofertas que encajan con tu perfil. Revísalas en tu panel.</p>
               </div>
             </div>
           </div>

@@ -97,7 +97,8 @@ export const navItems = [
   ["03", "Tipografía"],
   ["04", "Espaciado"],
   ["05", "Componentes"],
-  ["06", "Perfiles"],
+  ["06", "Criterios de uso"],
+  ["07", "Perfiles"],
 ]
 
 export const profiles = [

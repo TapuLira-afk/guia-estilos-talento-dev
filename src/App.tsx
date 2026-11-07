@@ -59,10 +59,6 @@ export default function App() {
               </button>
             ))}
           </div>
-          <span className="status">
-            <i />
-            Actualizado hoy
-          </span>
           <button
             type="button"
             className="pdf-button"
@@ -91,7 +87,7 @@ export default function App() {
         <nav aria-label="Secciones de la guía">
           {navItems.map(([number, label], index) => (
             <a
-              href={`#${label.toLowerCase()}`}
+              href={`#${label.toLowerCase().replaceAll(" ", "-")}`}
               className={index === 0 ? "active" : ""}
               key={label}
             >
@@ -132,7 +128,7 @@ export default function App() {
                     ["Módulo", "Proyecto Intermodular de Desarrollo de Aplicaciones Web (0616)"],
                     ["Fase", "Fase 2 · Diseño y planificación del proyecto"],
                     ["Proyecto ", "Talento.Dev"],
-                    ["Continuidad", "Ejemplos de la Fase 1 (Actividades 1 y 2): préstamo y reserva de material de una asociación juvenil"],
+                    ["Continuidad", "Actividades 1 y 2\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0"],
                   ].map(([label, value]) => (
                     <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>
                   ))}
@@ -491,10 +487,81 @@ export default function App() {
 
         <ComponentShowcase />
 
+        <section id="criterios-de-uso">
+          <div className="section-heading">
+            <div className="eyebrow">
+              <span>06</span> Criterios de uso
+            </div>
+          </div>
+          <div className="identity-block">
+            <h2>6.1 Componentes</h2>
+            <div className="identity-table-wrap">
+              <table className="identity-table usage-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Elemento</th>
+                    <th scope="col">Regla de uso</th>
+                    <th scope="col">Por qué</th>
+                    <th scope="col">Dónde se ve</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    "A · Botones",
+                    "A · Botones varios · Redes sociales",
+                    "B · Campos",
+                    "B · Componentes de búsqueda",
+                    "C · Estados · Disponibilidad",
+                    "D · Mensajes",
+                    "E · Etiquetas · Tecnologías",
+                    "F · Logotipo y cabecera",
+                  ].map((element) => (
+                    <tr key={element}>
+                      <th scope="row">{element}</th>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="identity-block">
+            <h2>6.2 Tipografía</h2>
+            <div className="identity-table-wrap">
+              <table className="identity-table usage-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Uso</th>
+                    <th scope="col">Tipografía</th>
+                    <th scope="col">Origen / licencia</th>
+                    <th scope="col">Motivo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Titulares</th>
+                    <td>Playfair Display</td>
+                    <td>Google Fonts · SIL Open Font License</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Texto e interfaz</th>
+                    <td>Inter</td>
+                    <td>Google Fonts · SIL Open Font License</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
         <section id="perfiles">
           <div className="section-heading">
             <div className="eyebrow">
-              <span>06</span> Perfiles
+              <span>07</span> Perfiles
             </div>
             <p>
               Cada perfil tiene su propio color para que la persona sepa siempre
@@ -514,7 +581,7 @@ export default function App() {
                 >
                   <BrandIcon role={p.id} className="profile-icon" />
                   <small>{p.role}</small>
-                  <strong>{p.name}</strong>
+                  <strong>{p.id === "candidate" ? "Demandante " : p.name}</strong>
                 </span>
                 <span className="profile-swatches">
                   {[
