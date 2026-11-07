@@ -2,70 +2,92 @@
 
 ## Descripción
 
-Esta es la guía de estilo de Talento.Dev, una aplicación web que proporciona una referencia visual completa para el diseño y desarrollo de interfaces de usuario. La guía contiene los fundamentos de diseño, paletas de colores, tipografía, espaciado y componentes reutilizables que se utilizan en toda la plataforma.
+Guía de estilo interactiva de **Talento.Dev**, una plataforma de gestión de talento. Proporciona una referencia visual completa para el diseño y desarrollo de interfaces: fundamentos de diseño, paletas de colores por perfil, tipografía, espaciado, criterios de uso y componentes UI reutilizables.
 
 ## Características
 
 - **Diseño responsive**: Adaptación automática a diferentes tamaños de pantalla
-- **Modo oscuro**: Soporte para tema oscuro con transiciones suaves
-- **Múltiples perfiles**: Diferentes temas según el rol del usuario (Administrador, Reclutador, Demandante)
-- **Guía completa**: Incluye fundamentos, colores, tipografía, espaciado y componentes
-- **Descarga PDF**: Funcionalidad para imprimir o descargar la guía como documento PDF
+- **Modo oscuro / claro**: Cambio de tema con transiciones suaves
+- **Tres perfiles de marca**: Paleta e iconografía según el rol (Administrador, Reclutador, Demandante)
+- **Guía completa en 7 secciones**: Fundamentos, Color, Tipografía, Espaciado, Componentes, Criterios de uso, Perfiles
+- **Copiado de colores**: Un clic para copiar cualquier valor hex al portapapeles
+- **Exportación PDF**: Botón "Descargar PDF" que abre el diálogo de impresión del navegador
+- **Favicon dinámico**: El icono de la pestaña cambia según el perfil seleccionado
 
 ## Estructura del Proyecto
 
 ```
 guia-estilos-talento-dev/
+├── public/
+│   ├── assets/               # Iconos SVG de marca y tecnologías
+│   │   ├── *.svg             # Capas del penguin (cuerpo, ojos, pico, patas, gorra, código)
+│   │   └── technologies/     # Iconos SVG de tecnologías (Java, React, Docker, etc.)
+│   └── favicon.svg
 ├── src/
-│   ├── main.tsx              # Punto de entrada de la aplicación
-│   ├── App.tsx               # Componente principal de la aplicación
-│   ├── index.css             # Estilos globales y configuración de Tailwind
-│   ├── components/           # Componentes reutilizables
-│   │   ├── BrandIcon.tsx     # Icono de marca con diferentes perfiles
-│   │   └── ComponentShowcase.tsx  # Muestra de componentes UI
-│   └── data/                 # Datos de configuración
-│       └── style-guide.ts    # Paletas de colores, navegación y perfiles
-├── index.html                # Archivo HTML principal
-└── package.json              # Dependencias y scripts del proyecto
+│   ├── main.tsx              # Punto de entrada; monta <App /> en #root
+│   ├── App.tsx               # Componente principal: header, sidebar y 7 secciones
+│   ├── index.css             # Estilos globales, variables CSS por perfil y tema
+│   ├── vite-env.d.ts         # Declaraciones de tipos de Vite
+│   ├── components/
+│   │   ├── BrandIcon.tsx     # Icono de marca (penguin) + hook de favicon dinámico
+│   │   └── ComponentShowcase.tsx  # Sección 05: botones, campos, estados, mensajes, etiquetas
+│   └── data/
+│       └── style-guide.ts    # Paletas de colores, items de navegación y perfiles
+├── index.html                # Shell HTML con #root y carga de main.tsx
+├── vite.config.ts            # Config Vite: React, Tailwind CSS v4, alias @ → src
+├── tsconfig.json             # Configuración de TypeScript
+├── .mise.toml                # Versiones de Node.js y pnpm
+├── package.json              # Dependencias y scripts
+└── pnpm-lock.yaml            # Lockfile de pnpm
 ```
 
-## Tecnologías Utilizadas
+## Tecnologías
 
-- **React 19** - Biblioteca para construcción de interfaces de usuario
-- **Vite 8** - Herramienta de desarrollo y build
-- **Tailwind CSS v4** - Framework de estilos utilitarios
-- **TypeScript 5.7** - Lenguaje de programación tipado
-- **Figma Make** - Entorno de desarrollo integrado
+| Tecnología | Versión | Uso |
+|---|---|---|
+| React | 19 | UI declarativa |
+| Vite | 8 | Dev server y build |
+| Tailwind CSS | 4 | Utilidades CSS (vía `@tailwindcss/vite`) |
+| TypeScript | 5.7 | Tipado estático |
+| oxfmt | – | Formateo de código |
+| pnpm | 9+ | Gestor de paquetes |
 
-## Funcionalidades Principales
+## Scripts disponibles
 
-1. **Navegación por secciones**: Acceso rápido a los diferentes aspectos de la guía de estilo
-2. **Cambio de perfil**: Selección entre tres perfiles (Administrador, Reclutador, Demandante)
-3. **Modo oscuro/claro**: Cambio de tema con persistencia
-4. **Copiado de colores**: Funcionalidad para copiar valores de color al portapapeles
-5. **Exportación PDF**: Descarga de la guía en formato PDF para impresión
+| Comando | Descripción |
+|---|---|
+| `pnpm dev` | Inicia el servidor de desarrollo (hot-reload) |
+| `pnpm build` | Build de producción para `dist/` |
+| `pnpm preview` | Previsualiza el build de producción |
+| `pnpm format` | Formatea el código con oxfmt |
 
-## Scripts Disponibles
+## Cómo ejecutar
 
-- `npm run dev` - Inicia el servidor de desarrollo
-- `npm run build` - Construye la aplicación para producción
-- `npm run preview` - Previsualiza la aplicación construida
-- `npm run format` - Formatea el código con oxfmt
+**Prerequisitos:** Node.js ≥ 18 y [pnpm](https://pnpm.io) ≥ 9.
 
-## Cómo Ejecutar el Proyecto
+```bash
+# 1. Instalar dependencias
+pnpm install
 
-1. Asegúrate de tener Node.js y pnpm instalados
-2. Instala las dependencias:
-   ```bash
-   pnpm install
-   ```
-3. Inicia el servidor de desarrollo:
-   ```bash
-   npm run dev
-   ```
+# 2. Servidor de desarrollo
+pnpm dev
+```
 
-La aplicación se ejecutará en el puerto especificado por `$PORT` (por defecto 8443) y estará disponible para ser vista en el panel de previsualización.
+La aplicación queda disponible en `http://localhost:$PORT` (por defecto **8443**).
+En el contexto de **Figma Make** el servidor de Vite ya está corriendo y se accede directamente desde el panel de previsualización.
+
+## Secciones de la guía
+
+| # | Sección | Contenido |
+|---|---|---|
+| 01 | Fundamentos | Identidad, datos académicos, principios de diseño |
+| 02 | Color | Paletas por perfil (primarios, secundarios, neutros) con copiado hex |
+| 03 | Tipografía | Escala tipográfica, Playfair Display e Inter |
+| 04 | Espaciado | Sistema de espaciado y grid |
+| 05 | Componentes | Botones, campos, estados, mensajes, etiquetas de tecnología |
+| 06 | Criterios de uso | Tablas de correspondencia: componente → perfil, tipografía → licencia |
+| 07 | Perfiles | Tarjetas interactivas para previsualizar cada perfil de marca |
 
 ## Autores
 
-Talento.Dev - Equipo de Desarrollo
+**Talento.Dev** – Equipo de Desarrollo
