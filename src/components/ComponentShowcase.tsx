@@ -48,11 +48,11 @@ export function ComponentShowcase() {
           <span className="component-label">Botones</span>
           <div className="button-row">
             <button className="btn primary">
-              Acción principal <ArrowIcon />
+              Acción principal
             </button>
             <button className="btn secondary">Acción secundaria</button>
             <button className="btn text">
-              Botón de texto <ArrowIcon />
+              Botón de texto
             </button>
             <button className="btn secondary" disabled>
               Desactivado
