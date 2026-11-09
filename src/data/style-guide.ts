@@ -36,7 +36,7 @@ export const palettes: Record<string, {
       group: "Colores primarios",
       colors: [
         { use: "Primario", value: "#002147" },
-        { use: "Secundario", value: "#D2B48C" },
+        { use: "Secundario", value: "#D9BD66" },
         { use: "Fondo principal", value: "#F6F2EB" },
       ],
     },
