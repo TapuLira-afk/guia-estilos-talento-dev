@@ -2,6 +2,57 @@ import { useState } from "react"
 import { BrandIcon, useProfileFavicon } from "./components/BrandIcon"
 import { ComponentShowcase } from "./components/ComponentShowcase"
 import { navItems, palettes, profiles } from "./data/style-guide"
+const filas = [
+  {
+    elemento: "A · Botones",
+    regla: "Botón primario para acción principal (máx. 1 por vista); secundario para acciones alternativas; ",
+    porQue: "Jerarquiza la acción esperada y evita competencia visual entre CTAs.",
+    donde: "Formularios, modales, cabecera de sección",
+  },
+  {
+    elemento: "A · Botones varios · Redes sociales",
+    regla: "Usar icono + color de marca; tamaño 32–40px; incluir aria-label.",
+    porQue: "Reconocimiento inmediato del canal y accesibilidad para lectores de pantalla.",
+    donde: "Footer, sección de contacto, tarjetas de autor",
+  },
+  {
+    elemento: "B · Campos",
+    regla: "Label siempre visible arriba; placeholder solo como ejemplo; estado error con borde y mensaje.",
+    porQue: "Mejora accesibilidad (WCAG) y reduce errores de llenado.",
+    donde: "Formularios de login, registro, checkout",
+  },
+  {
+    elemento: "B · Componentes de búsqueda",
+    regla: "Input con icono lupa, ancho mínimo 240px, debounce 300ms, limpiar con ✕.",
+    porQue: "Feedback inmediato y evita peticiones innecesarias al servidor.",
+    donde: "Header, listados, tablas filtrables",
+  },
+  {
+    elemento: "C · Estados · Disponibilidad",
+    regla: "Verde = disponible, ámbar = limitado, rojo = agotado; siempre con texto, no solo color.",
+    porQue: "Accesibilidad para daltónicos y claridad semántica.",
+    donde: "Listados de productos, reservas, agenda",
+  },
+  {
+    elemento: "D · Mensajes",
+    regla: "Info (azul), éxito (verde), advertencia (ámbar), error (rojo). Autocierre solo en éxito/info.",
+    porQue: "Consistencia cromática y permite al usuario actuar ante errores.",
+    donde: "Toasts, banners, validaciones inline",
+  },
+  {
+    elemento: "E · Etiquetas · Tecnologías",
+    regla: "Chips compactas (padding 2–6px), fondo neutro, texto 12px, no interactivas salvo filtro.",
+    porQue: "Diferenciar información de controles interactivos.",
+    donde: "Cards de proyecto, perfiles, filtros",
+  },
+  {
+    elemento: "F · Logotipo y cabecera",
+    regla: "Logo enlaza a home, altura fija 40px, área de respeto = altura/2, cabecera sticky opcional.",
+    porQue: "Navegación predecible y consistencia de marca.",
+    donde: "Header global en todas las páginas",
+  },
+];
+
 
 function MoonIcon() {
   return (
@@ -504,21 +555,12 @@ export default function App() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    "A · Botones",
-                    "A · Botones varios · Redes sociales",
-                    "B · Campos",
-                    "B · Componentes de búsqueda",
-                    "C · Estados · Disponibilidad",
-                    "D · Mensajes",
-                    "E · Etiquetas · Tecnologías",
-                    "F · Logotipo y cabecera",
-                  ].map((element) => (
-                    <tr key={element}>
-                      <th scope="row">{element}</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                  {filas.map((fila) => (
+                    <tr key={fila.elemento}>
+                      <th scope="row">{fila.elemento}</th>
+                      <td>{fila.regla}</td>
+                      <td>{fila.porQue}</td>
+                      <td>{fila.donde}</td>
                     </tr>
                   ))}
                 </tbody>
