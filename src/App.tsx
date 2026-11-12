@@ -5,54 +5,71 @@ import { navItems, palettes, profiles } from "./data/style-guide"
 const filas = [
   {
     elemento: "A · Botones",
-    regla: "Botón primario para acción principal (máx. 1 por vista); secundario para acciones alternativas; ",
-    porQue: "Jerarquiza la acción esperada y evita competencia visual entre CTAs.",
-    donde: "Formularios, modales, cabecera de sección",
+    regla: "Botón primario para la acción principal (máx. 1 por vista); secundario para acciones alternativas; terciario (boton de texto) para acciones de baja prioridad.",
+    porQue: "Jerarquiza la acción esperada, evita competencia visual entre CTAs y comunica si el botón está disponible o procesando.",
+    donde: "Formularios, modales, cabecera de sección, barras de acciones",
   },
   {
-    elemento: "A · Botones varios · Redes sociales",
-    regla: "Usar icono + color de marca; tamaño 32–40px; incluir aria-label.",
-    porQue: "Reconocimiento inmediato del canal y accesibilidad para lectores de pantalla.",
-    donde: "Footer, sección de contacto, tarjetas de autor",
+    elemento: "A · Botones de icono · Redes sociales y utilidades",
+    regla: "Icono + color marca; tamaño táctil mínimo 44×44 px (icono 24 px); incluir aria-label siempre, también en compartir, guardar y similares.",
+    porQue: "Reconocimiento inmediato del canal, accesibilidad para lectores de pantalla y usabilidad táctil (WCAG 2.2).",
+    donde: "Footer, sección de contacto, tarjetas de autor, barra de acciones",
   },
   {
     elemento: "B · Campos",
-    regla: "Label siempre visible arriba; placeholder solo como ejemplo; estado error con borde y mensaje.",
-    porQue: "Mejora accesibilidad (WCAG) y reduce errores de llenado.",
-    donde: "Formularios de login, registro, checkout",
+    regla: "Label(titulo del campo) visible siempre arriba; placeholder solo como ejemplo, nunca sustituto del label. El error incluye texto descriptivo asociado (aria-describedby).",
+    porQue: "Mejora accesibilidad (WCAG) y reduce errores de llenado; sin estados el campo no comunica si está bloqueado o inválido.",
+    donde: "Login, registro, checkout, edición de perfil",
   },
   {
     elemento: "B · Componentes de búsqueda",
-    regla: "Input con icono lupa, ancho mínimo 240px, debounce 300ms, limpiar con ✕.",
-    porQue: "Feedback inmediato y evita peticiones innecesarias al servidor.",
+    regla: "Input con icono lupa, ancho mínimo 240 px. Botón de limpiar (✕) visible solo cuando hay texto; aria-label en input y botón; estado loading mientras se obtienen resultados.",
+    porQue: "Feedback inmediato, evita peticiones innecesarias y aclara cuándo hay una búsqueda en curso.",
     donde: "Header, listados, tablas filtrables",
   },
   {
+    elemento: "B · Selects y combobox",
+    regla: "Label visible; placeholder como opción deshabilitada («Selecciona…»); soporte de teclado (flechas, Enter, Esc); estados abierto/cerrado y opción seleccionada visibles.",
+    porQue: "Los filtros por categoría, ubicación o modalidad son claves en el proyecto, sin teclado ni estados el filtrado se vuelve inaccesible.",
+    donde: "Filtros de ofertas, formularios de perfil, configuración",
+  },
+  {
+    elemento: "B · Checkboxes y radios",
+    regla: "Checkbox para selección múltiple; radio para opción excluyente. Área táctil mínima 44×44 px; label clicable; estados focus-visible y disabled definidos.",
+    porQue: "La selección de tecnologías y los filtros excluyentes necesitan controles claros y accesibles.",
+    donde: "Filtros de búsqueda, preferencias, formularios",
+  },
+  {
+    elemento: "B · Toggles / switches",
+    regla: "Switch para activar o desactivar ajustes con efecto inmediato; incluir label y estado on/off con texto o aria-checked.",
+    porQue: "Notificaciones y visibilidad del perfil se gestionan mejor con un control de estado explícito.",
+    donde: "Configuración de cuenta, preferencias de notificaciones",
+  },
+  {
     elemento: "C · Estados · Disponibilidad",
-    regla: "Verde = disponible, ámbar = limitado, rojo = agotado; siempre con texto, no solo color.",
-    porQue: "Accesibilidad para daltónicos y claridad semántica.",
-    donde: "Listados de productos, reservas, agenda",
+    regla: "Verde = disponible, ámbar = limitado, rojo = agotado; siempre con icono (✓ ⚠ ✕) y texto explícito, no solo color.",
+    porQue: "Accesibilidad para daltónicos y claridad semántica; la combinación color + icono + texto es el estándar WCAG.",
+    donde: "Listados de ofertas, reservas, agenda",
+  },
+  {
+    elemento: "C · Badges e indicadores numéricos",
+    regla: "Badge compacto (padding 2–6 px, texto 12 px) para conteos de notificaciones, postulaciones o resultados. Si supera 99 mostrar «99+»; incluir aria-label con el número completo.",
+    porQue: "Comunica volumen de información sin recargar la interfaz y sin perder accesibilidad.",
+    donde: "Header, tabs, iconos de notificación, filtros",
   },
   {
     elemento: "D · Mensajes",
-    regla: "Info (azul), éxito (verde), advertencia (ámbar), error (rojo). Autocierre solo en éxito/info.",
-    porQue: "Consistencia cromática y permite al usuario actuar ante errores.",
+    regla: "Info (azul), éxito (verde), advertencia (ámbar), error (rojo). Autocierre solo en éxito e info.",
+    porQue: "Consistencia cromática y permite al usuario leer y actuar ante errores antes de que desaparezcan.",
     donde: "Toasts, banners, validaciones inline",
   },
   {
     elemento: "E · Etiquetas · Tecnologías",
-    regla: "Chips compactas (padding 2–6px), fondo neutro, texto 12px, no interactivas salvo filtro.",
-    porQue: "Diferenciar información de controles interactivos.",
-    donde: "Cards de proyecto, perfiles, filtros",
-  },
-  {
-    elemento: "F · Logotipo y cabecera",
-    regla: "Logo enlaza a home, altura fija 40px, área de respeto = altura/2, cabecera sticky opcional.",
-    porQue: "Navegación predecible y consistencia de marca.",
-    donde: "Header global en todas las páginas",
+    regla: "Se forma con el logo de la tecnologia + nombre + color descriptivo de fondo y bordes, texto 12 px. No interactivas salvo que actúen como filtro.",
+    porQue: "Permite añadir de forma descriptiva las tecnologias o habilidades de un perfil.",
+    donde: "Tarjetas de proyecto, perfiles",
   },
 ];
-
 
 function MoonIcon() {
   return (
