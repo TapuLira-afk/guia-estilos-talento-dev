@@ -601,13 +601,24 @@ export default function App() {
                     <th scope="row">Titulares</th>
                     <td>Playfair Display</td>
                     <td>Google Fonts · SIL Open Font License</td>
-                    <td></td>
+                    <td>
+                      Serif de alto contraste que aporta carácter editorial y jerarquía
+                      visual a los encabezados; transmite rigor y distinción sin resultar
+                      anticuada. Ideal para títulos de sección y hero, donde se busca
+                      personalidad de marca.
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">Texto e interfaz</th>
                     <td>Inter</td>
                     <td>Google Fonts · SIL Open Font License</td>
-                    <td></td>
+                    <td>
+                      Sans serif geométrica diseñada para pantallas: alta legibilidad en
+                      tamaños pequeños, métricas estables y amplia cobertura de pesos.
+                      Reduce la fatiga visual en formularios, listados y textos largos, y
+                      armoniza bien con Playfair Display al compartir proporciones
+                      equilibradas.
+                    </td>
                   </tr>
                 </tbody>
               </table>
