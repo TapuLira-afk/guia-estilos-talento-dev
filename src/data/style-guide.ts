@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 export const palettes: Record<string, {
   group: string
   colors: { use: string value: string }[]
@@ -96,9 +98,11 @@ export const navItems = [
   ["02", "Color"],
   ["03", "Tipografía"],
   ["04", "Espaciado"],
-  ["05", "Componentes"],
-  ["06", "Criterios de uso"],
-  ["07", "Perfiles"],
+  ["05", "Estructura"],
+  ["06", "Navegación"],
+  ["07", "Componentes"],
+  ["08", "Criterios de uso"],
+  ["09", "Perfiles"],
 ]
 
 export const profiles = [
@@ -127,3 +131,81 @@ export const profiles = [
     soft: "#D9D5BC",
   },
 ]
+
+export const diagramStyles: Record<string, CSSProperties> = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "1rem",
+    padding: "2rem",
+    backgroundColor: "var(--bg-card, #ffffff)", // Puedes cambiarlo por "#FFFCF6" si prefieres fijo
+    border: "1px solid #e5e7eb",
+    borderRadius: "12px",
+    overflowX: "auto",
+    fontFamily: "Inter, sans-serif",
+    width: "100%",
+    boxSizing: "border-box",
+  },
+  node: {
+    padding: "12px 20px",
+    borderRadius: "8px",
+    textAlign: "center",
+    fontSize: "14px",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    backgroundColor: "#ffffff",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+    minWidth: "160px",
+    color: "#10243B", // Color de texto principal de tu paleta
+  },
+  arrowDown: {
+    fontSize: "20px",
+    color: "#9ca3af",
+    margin: "4px 0",
+    lineHeight: "1",
+  },
+  roleGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "1.5rem",
+    width: "100%",
+    alignItems: "start",
+  },
+  roleColumn: {
+    borderRadius: "8px",
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
+  },
+  roleHeader: {
+    color: "white",
+    padding: "0.5rem",
+    borderRadius: "4px",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: "14px",
+  },
+  navMapGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(5, 1fr)",
+    gap: "1rem",
+    width: "100%",
+    alignItems: "start",
+  },
+  navColumn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "0.5rem",
+  },
+  navAction: {
+    borderStyle: "dashed",
+    fontSize: "12px",
+    padding: "8px 12px",
+    backgroundColor: "#FFFCF3", // Color de fondo de la paleta candidate
+    width: "100%",
+    boxSizing: "border-box",
+  },
+};
