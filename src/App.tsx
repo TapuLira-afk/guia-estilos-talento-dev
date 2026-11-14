@@ -2,6 +2,8 @@ import { useState } from "react"
 import { BrandIcon, useProfileFavicon } from "./components/BrandIcon"
 import { ComponentShowcase } from "./components/ComponentShowcase"
 import { navItems, palettes, profiles, diagramStyles } from "./data/style-guide"
+import { Diagram, DiagramRow, DiagramCol, DiagramNode } from './components/Diagram';
+
 const filas = [
   {
     elemento: "A · Botones",
@@ -555,193 +557,132 @@ export default function App() {
         <section id="estructura">
           <div className="section-heading">
             <div className="eyebrow"><span>05</span> Estructura general</div>
-            <p>La aplicación se organiza en tres áreas de experiencia, una para cada perfil. La separación entre el espacio de exploración y el de gestión se mantiene clara para garantizar que cada rol acceda a sus herramientas.</p>
+            <p>La aplicación se organiza en tres áreas de experiencia...</p>
           </div>
 
-          <div style={diagramStyles.container}>
-            {/* Acceso */}
-            <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F7F5F6", minWidth: "250px" }}>
-              <strong>ACCESO</strong><br />Inicio de sesión<br /><small>(Redirige según el rol)</small>
-            </div>
+          <Diagram>
+            <DiagramNode variant="access" data-connector="down">
+              <strong>ACCESO</strong>
+              Inicio de sesión
+              <small>(Redirige según el rol)</small>
+            </DiagramNode>
 
-            <div style={diagramStyles.arrowDown}>▼</div>
+            <DiagramRow className="diagram-row--roles">
+              {/* Columna Demandante */}
+              <DiagramCol>
+                <DiagramNode variant="role" color="candidate">
+                  Rol: Demandante
+                </DiagramNode>
+                <DiagramNode variant="menu" color="candidate" data-connector="down">
+                  <strong>MENÚ GLOBAL</strong>
+                  <small>Ranking / Ofertas / Recursos / Mi Perfil</small>
+                </DiagramNode>
+                <DiagramNode color="candidate" data-connector="down">
+                  <strong>CONSULTA Y DESCUBRIMIENTO</strong>
+                  <small>Ranking de Tecnologías, Recursos de Aprendizaje, Ofertas de Empleo, Buscar Perfiles</small>
+                </DiagramNode>
+                <DiagramNode color="candidate">
+                  <strong>GESTIÓN PERSONAL</strong>
+                  <small>Mi Perfil (Edición), Perfiles Favoritos</small>
+                </DiagramNode>
+              </DiagramCol>
 
-            {/* Grid de 3 Roles */}
-            <div style={diagramStyles.roleGrid}>
+              {/* Columna Reclutador */}
+              <DiagramCol>
+                <DiagramNode variant="role" color="recruiter">
+                  Rol: Reclutador
+                </DiagramNode>
+                <DiagramNode variant="menu" color="recruiter" data-connector="down">
+                  <strong>MENÚ GLOBAL</strong>
+                  <small>Panel de Control / Candidatos / Ofertas</small>
+                </DiagramNode>
+                <DiagramNode color="recruiter" data-connector="down">
+                  <strong>CONSULTA</strong>
+                  <small>Buscar Perfiles, Ver Detalle de Candidato</small>
+                </DiagramNode>
+                <DiagramNode color="recruiter">
+                  <strong>GESTIÓN</strong>
+                  <small>Crear/Editar Ofertas, Gestionar Candidaturas</small>
+                </DiagramNode>
+              </DiagramCol>
 
-              {/* ADMINISTRADOR */}
-              <div style={{ ...diagramStyles.roleColumn, background: "#F7F5F6", border: "1px solid #2A2529" }}>
-                <div style={{ ...diagramStyles.roleHeader, background: "#2A2529" }}>ROL: ADMINISTRADOR</div>
-                <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#FFFFFF" }}>
-                  <strong>MENÚ GLOBAL</strong><br /><small>Usuarios / Categorías / Métricas</small>
-                </div>
-                <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F3F0E7" }}>
-                  <strong>ADMINISTRACIÓN DEL SISTEMA</strong><br />
-                  <small>CRUD de Usuarios<br />Gestión de Categorías<br />Métricas Globales</small>
-                </div>
-              </div>
-
-              {/* RECLUTADOR */}
-              <div style={{ ...diagramStyles.roleColumn, background: "#F6F2EB", border: "1px solid #002147" }}>
-                <div style={{ ...diagramStyles.roleHeader, background: "#002147" }}>ROL: RECLUTADOR</div>
-                <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#FFFCF7" }}>
-                  <strong>MENÚ GLOBAL</strong><br /><small>Panel de Control / Candidatos / Ofertas</small>
-                </div>
-                <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#F6F2EB" }}>
-                  <strong>CONSULTA</strong><br />
-                  <small>Buscar Perfiles<br />Ver Detalle de Candidato</small>
-                </div>
-                <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#D9BD66" }}>
-                  <strong>GESTIÓN</strong><br />
-                  <small>Crear/Editar Ofertas<br />Gestionar Candidaturas</small>
-                </div>
-              </div>
-
-              {/* DEMANDANTE */}
-              <div style={{ ...diagramStyles.roleColumn, background: "#F5F6EE", border: "1px solid #7A8450" }}>
-                <div style={{ ...diagramStyles.roleHeader, background: "#7A8450" }}>ROL: DEMANDANTE</div>
-                <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#FFFCF3" }}>
-                  <strong>MENÚ GLOBAL</strong><br /><small>Ranking / Ofertas / Recursos / Mi Perfil</small>
-                </div>
-                <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE" }}>
-                  <strong>CONSULTA Y DESCUBRIMIENTO</strong><br />
-                  <small>Ranking de Tecnologías<br />Recursos de Aprendizaje<br />Ofertas de Empleo<br />Buscar Perfiles</small>
-                </div>
-                <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F8EFDA" }}>
-                  <strong>GESTIÓN PERSONAL</strong><br />
-                  <small>Mi Perfil (Edición)<br />Perfiles Favoritos</small>
-                </div>
-              </div>
-
-            </div>
-          </div>
+              {/* Columna Administrador */}
+              <DiagramCol>
+                <DiagramNode variant="role" color="admin">
+                  Rol: Administrador
+                </DiagramNode>
+                <DiagramNode variant="menu" color="admin" data-connector="down">
+                  <strong>MENÚ GLOBAL</strong>
+                  <small>Usuarios / Categorías / Métricas</small>
+                </DiagramNode>
+                <DiagramNode color="admin">
+                  <strong>ADMINISTRACIÓN DEL SISTEMA</strong>
+                  <small>CRUD de Usuarios, Gestión de Categorías, Métricas Globales</small>
+                </DiagramNode>
+              </DiagramCol>
+            </DiagramRow>
+          </Diagram>
         </section>
 
-        {/* ========================================================= */}
-        {/* NUEVA SECCIÓN 06: MAPA DE NAVEGACIÓN (Dinámico por perfil) */}
-        {/* ========================================================= */}
         <section id="navegacion">
           <div className="section-heading">
             <div className="eyebrow"><span>06</span> Mapa de navegación</div>
-            <p>El mapa detalla el recorrido específico del perfil activo (<strong>{profile === "candidate" ? "Demandante" : profile === "recruiter" ? "Reclutador" : "Administrador"}</strong>). Cambia el perfil en la cabecera superior para ver su flujo correspondiente.</p>
+            <p>El mapa detalla el recorrido específico del perfil activo...</p>
           </div>
 
-          <div style={diagramStyles.container}>
-            <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F7F5F6" }}>
+          <Diagram>
+            <DiagramNode variant="access" data-connector="down">
               <strong>Inicio de sesión</strong>
-            </div>
+            </DiagramNode>
 
-            <div style={diagramStyles.arrowDown}>▼</div>
+            <DiagramNode variant="menu" color="candidate" data-connector="branch">
+              <strong>MENÚ GLOBAL (Navbar)</strong>
+              <small>Permite saltar entre cualquier pantalla principal</small>
+            </DiagramNode>
 
-            {/* --- VISTA: DEMANDANTE --- */}
-            {profile === "candidate" && (
-              <>
-                <div style={{ ...diagramStyles.node, borderColor: "#7A8450", borderStyle: "dashed", background: "#FFFFFF", width: "80%", maxWidth: "500px" }}>
-                  <strong>MENÚ GLOBAL (Navbar)</strong><br />
-                  <small>Ranking / Ofertas / Recursos / Mi Perfil</small>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-between", width: "100%", color: "#7A8450", marginTop: "10px", marginBottom: "10px", padding: "0 10%" }}>
-                  <span>▼</span><span>▼</span><span>▼</span><span>▼</span><span>▼</span>
-                </div>
-                <div style={diagramStyles.navMapGrid}>
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Ranking de tecnologías</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Recursos de aprendizaje</strong></div>
-                  </div>
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Ofertas de empleo</strong></div>
-                  </div>
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Buscar perfiles</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Detalle del perfil</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px", opacity: 0.5 }}>▼</div>
-                    <div style={{ ...diagramStyles.node, ...diagramStyles.navAction, borderColor: "#7A8450" }}>[ Añadir a Favoritos ]</div>
-                  </div>
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Perfiles favoritos</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px", opacity: 0.5 }}>▼</div>
-                    <div style={{ ...diagramStyles.node, ...diagramStyles.navAction, borderColor: "#7A8450" }}>[ Estado: No hay perfiles ]</div>
-                  </div>
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#7A8450", background: "#F5F6EE", width: "100%" }}><strong>Mi perfil</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, ...diagramStyles.navAction, borderColor: "#7A8450" }}>[ Guardar cambios ]</div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* --- VISTA: RECLUTADOR --- */}
-            {profile === "recruiter" && (
-              <>
-                <div style={{ ...diagramStyles.node, borderColor: "#002147", borderStyle: "dashed", background: "#FFFFFF", width: "80%", maxWidth: "500px" }}>
-                  <strong>MENÚ GLOBAL (Navbar)</strong><br />
-                  <small>Dashboard / Candidatos / Mis Ofertas</small>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-around", width: "100%", color: "#002147", marginTop: "10px", marginBottom: "10px", padding: "0 20%" }}>
-                  <span>▼</span><span>▼</span><span>▼</span>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "100%", alignItems: "start" }}>
-                  {/* Columna 1 */}
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#F6F2EB", width: "100%" }}><strong>Panel de Control</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#F6F2EB", width: "100%" }}><strong>Métricas de actividad</strong></div>
-                  </div>
-                  {/* Columna 2 */}
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#F6F2EB", width: "100%" }}><strong>Buscar Candidatos</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#F6F2EB", width: "100%" }}><strong>Detalle del Candidato</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px", opacity: 0.5 }}>▼</div>
-                    <div style={{ ...diagramStyles.node, ...diagramStyles.navAction, borderColor: "#002147", backgroundColor: "#FFFCF7" }}>[ Contactar / Entrevistar ]</div>
-                  </div>
-                  {/* Columna 3 */}
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#F6F2EB", width: "100%" }}><strong>Mis Ofertas</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#002147", background: "#D9BD66", width: "100%" }}><strong>Gestión de Candidaturas</strong></div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* --- VISTA: ADMINISTRADOR --- */}
-            {profile === "admin" && (
-              <>
-                <div style={{ ...diagramStyles.node, borderColor: "#2A2529", borderStyle: "dashed", background: "#FFFFFF", width: "80%", maxWidth: "500px" }}>
-                  <strong>MENÚ GLOBAL (Navbar)</strong><br />
-                  <small>Usuarios / Categorías / Configuración</small>
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-around", width: "100%", color: "#2A2529", marginTop: "10px", marginBottom: "10px", padding: "0 20%" }}>
-                  <span>▼</span><span>▼</span><span>▼</span>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "100%", alignItems: "start" }}>
-                  {/* Columna 1 */}
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F7F5F6", width: "100%" }}><strong>Usuarios y Roles</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F3F0E7", width: "100%" }}><strong>Alta / Edición / Baja</strong></div>
-                  </div>
-                  {/* Columna 2 */}
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F7F5F6", width: "100%" }}><strong>Categorías y Tecnologías</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px" }}>▼</div>
-                    <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F3F0E7", width: "100%" }}><strong>Gestión de Catálogo</strong></div>
-                  </div>
-                  {/* Columna 3 */}
-                  <div style={diagramStyles.navColumn}>
-                    <div style={{ ...diagramStyles.node, borderColor: "#2A2529", background: "#F7F5F6", width: "100%" }}><strong>Métricas Globales</strong></div>
-                    <div style={{ ...diagramStyles.arrowDown, fontSize: "16px", opacity: 0.5 }}>▼</div>
-                    <div style={{ ...diagramStyles.node, ...diagramStyles.navAction, borderColor: "#2A2529", backgroundColor: "#F3F0E7" }}>[ Exportar Datos ]</div>
-                  </div>
-                </div>
-              </>
-            )}
-
-          </div>
+            <DiagramRow>
+              <DiagramCol>
+                <DiagramNode color="candidate" data-connector="down">
+                  <strong>Ranking de tecnologías</strong>
+                </DiagramNode>
+                <DiagramNode color="candidate">
+                  <strong>Recursos de aprendizaje</strong>
+                </DiagramNode>
+              </DiagramCol>
+              <DiagramCol>
+                <DiagramNode color="candidate">
+                  <strong>Ofertas de empleo</strong>
+                </DiagramNode>
+              </DiagramCol>
+              <DiagramCol>
+                <DiagramNode color="candidate" data-connector="down">
+                  <strong>Buscar perfiles</strong>
+                </DiagramNode>
+                <DiagramNode color="candidate" data-connector="down">
+                  <strong>Detalle del perfil</strong>
+                </DiagramNode>
+                <DiagramNode variant="action" color="candidate">
+                  [ Añadir a Favoritos ]
+                </DiagramNode>
+              </DiagramCol>
+              <DiagramCol>
+                <DiagramNode color="candidate" data-connector="down">
+                  <strong>Perfiles favoritos</strong>
+                </DiagramNode>
+                <DiagramNode variant="action" color="candidate">
+                  [ Estado: No hay perfiles ]
+                </DiagramNode>
+              </DiagramCol>
+              <DiagramCol>
+                <DiagramNode color="candidate" data-connector="down">
+                  <strong>Mi perfil</strong>
+                </DiagramNode>
+                <DiagramNode variant="action" color="candidate">
+                  [ Guardar cambios ]
+                </DiagramNode>
+              </DiagramCol>
+            </DiagramRow>
+          </Diagram>
         </section>
         <section id="criterios-de-uso">
           <div className="section-heading">
