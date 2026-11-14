@@ -2018,6 +2018,779 @@ footer a span {
   align-items: center;
 }
 
+/* Clase para ocultar visualmente pero mantener accesible para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* =========================================
+   SISTEMA DE DIAGRAMAS PROFESIONALES
+   ========================================= */
+
+/* Contenedor principal del diagrama */
+.pro-diagram {
+  width: 100%;
+  background: var(--paper, #FFFCF3);
+  border: 1px solid var(--line, #D9D5BC);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink, #242B1B);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Caja superior (Acceso / Login) */
+.pro-top-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--paper, #FFFCF3);
+  border: 2px solid var(--ink, #242B1B);
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  width: max-content;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 2;
+}
+
+.pro-top-box h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.pro-top-box p {
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  color: var(--muted, #596044);
+}
+
+/* Badges de roles (Píldoras) */
+.pro-badges {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pro-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid;
+  background: transparent;
+}
+
+/* Colores específicos de los badges */
+.pro-badge.demandante {
+  color: #7A8450;
+  border-color: #7A8450;
+}
+
+.pro-badge.reclutador {
+  color: #002147;
+  border-color: #002147;
+}
+
+.pro-badge.admin {
+  color: #2A2529;
+  border-color: #2A2529;
+}
+
+
+/* Estructura de dos columnas (Sección 05) */
+.pro-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: 2rem;
+  position: relative;
+  margin-top: 3rem;
+}
+
+/* Línea divisoria central */
+.pro-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  height: 100%;
+}
+
+.pro-divider-line {
+  flex-grow: 1;
+  width: 2px;
+  border-left: 2px dashed #e74c3c;
+  /* Rojo discontinuo del ejemplo */
+  position: relative;
+}
+
+.pro-divider-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.75rem;
+  color: #e74c3c;
+  background: var(--paper);
+  padding: 1rem 0;
+  margin: 1rem 0;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Zonas (Columnas con fondo de color) */
+.pro-zone {
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.pro-zone-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Áreas (Cajas dentro de las zonas) */
+.pro-area {
+  background: var(--paper, #FFFCF3);
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.pro-area h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.pro-area p {
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  color: var(--muted, #596044);
+  line-height: 1.5;
+}
+
+/* Badges pequeños dentro de las áreas */
+.pro-area-badges {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.pro-area-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  border: 1px solid;
+  background: transparent;
+}
+
+
+/* =========================================
+   MAPA DE NAVEGACIÓN (Sección 06)
+   ========================================= */
+
+.pro-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.pro-nav-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.pro-nav-column-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: white;
+  width: 100%;
+  text-align: center;
+}
+
+/* Flechas verticales del mapa */
+.pro-arrow {
+  width: 2px;
+  height: 24px;
+  background-color: #999;
+  position: relative;
+}
+
+.pro-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #999 transparent transparent transparent;
+}
+
+/* Caja de acción secundaria (borde discontinuo) */
+.pro-action-box {
+  border-style: dashed !important;
+  background: transparent !important;
+}
+
+/* =========================================
+   CONECTORES Y FLUJO DE PANTALLAS (Sección 06)
+   ========================================= */
+
+.flow-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+/* Contenedor de las 3 columnas */
+.flow-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+  margin-top: 3rem;
+}
+
+/* Línea horizontal superior que conecta las 3 columnas */
+.flow-columns::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  left: 16.66%;
+  /* Centro de la primera columna */
+  right: 16.66%;
+  /* Centro de la última columna */
+  height: 2px;
+  background-color: var(--line, #D9D5BC);
+  z-index: 1;
+}
+
+/* Columna individual */
+.flow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Línea vertical que baja desde la línea horizontal hasta el primer nodo */
+.flow-col::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  width: 2px;
+  height: 1.5rem;
+  background-color: var(--line, #D9D5BC);
+}
+
+/* Flecha vertical entre nodos */
+.flow-arrow-down {
+  width: 2px;
+  height: 2rem;
+  background-color: var(--line, #D9D5BC);
+  position: relative;
+}
+
+.flow-arrow-down::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--line, #D9D5BC) transparent transparent transparent;
+}
+
+/* Ruta de retorno (Ida y vuelta) - La línea discontinua de la izquierda */
+.flow-return-path {
+  position: absolute;
+  left: -2rem;
+  top: 2rem;
+  bottom: 2rem;
+  width: 2px;
+  border-left: 2px dashed var(--muted, #596044);
+  z-index: 1;
+}
+
+.flow-return-path::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -5px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent transparent var(--muted, #596044) transparent;
+}
+
+.flow-return-text {
+  position: absolute;
+  left: -3rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-size: 0.65rem;
+  color: var(--muted, #596044);
+  white-space: nowrap;
+}
+
+/* Nodos del flujo */
+.flow-node {
+  background: var(--paper, #FFFCF3);
+  border: 2px solid var(--ink, #242B1B);
+  border-radius: 6px;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.flow-node h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ink, #242B1B);
+}
+
+.flow-node p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.75rem;
+  color: var(--muted, #596044);
+}
+
+/* Nodo de acción secundaria (discontinuo) */
+.flow-node.dashed {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* =========================================
+   SISTEMA DE FLUJO DE PANTALLAS (Sección 06)
+   ========================================= */
+
+/* Aseguramos que el contenedor del diagrama herede los colores del perfil */
+.pro-diagram {
+  --flow-border: var(--border-color, #7A8450);
+  --flow-bg: var(--paper, #FFFCF3);
+  --flow-text: var(--text-main, #242B1B);
+  --flow-muted: var(--text-muted, #596044);
+  --flow-dashed: var(--coral, #566136);
+}
+
+.flow-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+/* El contenedor de las columnas */
+.flow-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+  position: relative;
+  margin-top: 3rem;
+}
+
+/* Línea horizontal superior que conecta las columnas */
+.flow-columns::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  left: 16.66%;
+  right: 16.66%;
+  height: 2px;
+  background-color: var(--flow-border);
+  z-index: 1;
+}
+
+/* Columna individual */
+.flow-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Línea vertical que baja desde la línea horizontal hasta el título de la columna */
+.flow-col::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  width: 2px;
+  height: 1.5rem;
+  background-color: var(--flow-border);
+}
+
+/* Flecha vertical entre nodos */
+.flow-arrow-down {
+  width: 2px;
+  height: 2rem;
+  background-color: var(--flow-border);
+  position: relative;
+}
+
+.flow-arrow-down::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: -4px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--flow-border) transparent transparent transparent;
+}
+
+/* Ruta de retorno (Ida y vuelta) - A la izquierda del todo */
+.flow-return-path {
+  position: absolute;
+  left: 2rem;
+  top: 4rem;
+  bottom: 2rem;
+  width: 2px;
+  border-left: 2px dashed var(--flow-dashed);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.flow-return-path::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -5px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent transparent var(--flow-dashed) transparent;
+}
+
+.flow-return-text {
+  position: absolute;
+  left: -3.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-size: 0.7rem;
+  color: var(--flow-dashed);
+  white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Nodos del flujo */
+.flow-node {
+  background: var(--flow-bg);
+  border: 2px solid var(--flow-border);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.flow-node h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--flow-text);
+}
+
+.flow-node p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.75rem;
+  color: var(--flow-muted);
+}
+
+/* Nodo de acción secundaria (discontinuo) */
+.flow-node.dashed {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+  width: 90%;
+}
+
+/* Título de la columna del flujo */
+.flow-col-title {
+  width: 100%;
+  padding: 0.6rem;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  background: var(--flow-border);
+}
+
+/* =========================================
+   ESTILOS PARA MERMAID (Sección 06)
+   ========================================= */
+
+.mermaid-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ajustes finos a los nodos de Mermaid para que se vean como nuestras cajas */
+.mermaid-container .node rect,
+.mermaid-container .node circle,
+.mermaid-container .node polygon {
+  rx: 6px;
+  ry: 6px;
+}
+
+.mermaid-container .node .label {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Los subgraphs (las columnas) toman el color del perfil dinámicamente */
+.mermaid-container .cluster rect {
+  rx: 8px;
+  ry: 8px;
+  fill: transparent !important;
+  stroke: var(--line) !important;
+  stroke-width: 1px !important;
+}
+
+.mermaid-container .cluster-label text {
+  font-weight: 800 !important;
+  text-transform: uppercase;
+  font-size: 12px !important;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   SISTEMA DE DIAGRAMAS Y FLUJOS (Dinámico)
+   ========================================= */
+
+.pro-diagram {
+  width: 100%;
+  background: var(--paper, #FFFCF3);
+  border: 1px solid var(--line, #D9D5BC);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink, #242B1B);
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+/* Caja Superior de Acceso */
+.pro-top-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ivory, #F5F6EE);
+  border: 2px solid var(--forest, #7A8450);
+  border-radius: 8px;
+  padding: 1.5rem 3rem;
+  width: max-content;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.pro-top-box h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--forest);
+}
+
+.pro-top-box p {
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Badges / Píldoras de Roles */
+.pro-badges {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pro-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid;
+  background: transparent;
+}
+
+/* Colores de badges basados en el perfil activo */
+.pro-badge.demandante {
+  color: #7A8450;
+  border-color: #7A8450;
+}
+
+.pro-badge.reclutador {
+  color: #002147;
+  border-color: #002147;
+}
+
+.pro-badge.admin {
+  color: #2A2529;
+  border-color: #2A2529;
+}
+
+
+/* Estructura de dos columnas */
+.pro-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  gap: 1rem;
+  position: relative;
+}
+
+/* Línea divisoria central (Roja discontinua) */
+.pro-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  height: 100%;
+}
+
+.pro-divider-line {
+  flex-grow: 1;
+  width: 2px;
+  border-left: 2px dashed #d9776a;
+  /* Rojo suave que combina con todas las paletas */
+  position: relative;
+}
+
+.pro-divider-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.75rem;
+  color: #d9776a;
+  background: var(--paper);
+  padding: 1rem 0;
+  margin: 1rem 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Zonas (Columnas con fondo) */
+.pro-zone {
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 1px solid var(--line);
+  background: var(--ivory);
+}
+
+.pro-zone-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--forest);
+  border-bottom: 2px solid var(--forest);
+  padding-bottom: 0.5rem;
+}
+
+/* Tarjetas de Áreas */
+.pro-area {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--forest);
+  /* Acento de color a la izquierda */
+  border-radius: 6px;
+  padding: 1.2rem;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.pro-area:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.pro-area h4 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.pro-area p {
+  margin: 0 0 1rem 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.pro-area-badges {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.pro-area-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--ivory);
+  color: var(--forest);
+}
+
 /* =========================================
    ADAPTACIÓN A LOS PERFILES (Selectores corregidos)
    ========================================= */
@@ -2056,6 +2829,233 @@ footer a span {
   --border-color: var(--coral);
   --text-main: var(--ink);
   --text-muted: var(--muted);
+}
+
+/* =========================================
+   SECCIÓN 05: ESTRUCTURA GENERAL (Fiel a referencia)
+   ========================================= */
+
+.estructura-container {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  box-sizing: border-box;
+}
+
+/* Caja de Acceso Superior */
+.estructura-acceso {
+  background: var(--paper);
+  border: 2px solid var(--forest);
+  border-radius: 8px;
+  padding: 1.5rem 2.5rem;
+  width: max-content;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.estructura-acceso h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.estructura-acceso p {
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Flechas hacia abajo */
+.estructura-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 60%;
+  /* Separa las flechas para que apunten a las columnas */
+  height: 30px;
+  margin-bottom: 1rem;
+  color: var(--forest);
+}
+
+.estructura-arrows svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Layout de 2 Columnas con Divisor */
+.estructura-split {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Columnas (Zonas) */
+.estructura-zona {
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 1px solid;
+}
+
+.estructura-zona.consulta {
+  background: #F5F6EE;
+  border-color: #7A8450;
+}
+
+.estructura-zona.gestion {
+  background: #F6F2EB;
+  border-color: #002147;
+}
+
+.estructura-zona-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 1px;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid;
+}
+
+.estructura-zona.consulta .estructura-zona-title {
+  color: #7A8450;
+  border-color: #7A8450;
+}
+
+.estructura-zona.gestion .estructura-zona-title {
+  color: #002147;
+  border-color: #002147;
+}
+
+/* Divisor Central Rojo */
+.estructura-divisor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.estructura-divisor-line {
+  flex-grow: 1;
+  width: 2px;
+  border-left: 2px dashed #e74c3c;
+}
+
+.estructura-divisor-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.75rem;
+  color: #e74c3c;
+  background: var(--paper);
+  padding: 1rem 0;
+  margin: 1rem 0;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Cajas de Áreas */
+.estructura-area {
+  background: var(--paper);
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.estructura-area.consulta-box {
+  border-color: #7A8450;
+}
+
+.estructura-area.gestion-box {
+  border-color: #002147;
+}
+
+.estructura-area.admin-box {
+  border-color: #2A2529;
+  background: #F3F0E7;
+}
+
+.estructura-area h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.estructura-area p {
+  margin: 0 0 1rem 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Badges y Requisitos */
+.estructura-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.estructura-badge {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  border: 1px solid;
+  background: transparent;
+}
+
+.estructura-badge.socio {
+  color: #7A8450;
+  border-color: #7A8450;
+}
+
+.estructura-badge.resp {
+  color: #002147;
+  border-color: #002147;
+}
+
+.estructura-badge.admin {
+  color: #2A2529;
+  border-color: #2A2529;
+}
+
+.estructura-rf {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.estructura-rf span {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .estructura-split {
+    grid-template-columns: 1fr;
+  }
+
+  .estructura-divisor {
+    display: none;
+  }
+
+  .estructura-arrows {
+    display: none;
+  }
 }
 
 /* Responsive para diagramas */

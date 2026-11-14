@@ -2,84 +2,114 @@ import { useState } from "react"
 import { BrandIcon, useProfileFavicon } from "./components/BrandIcon"
 import { ComponentShowcase } from "./components/ComponentShowcase"
 import { navItems, palettes, profiles, diagramStyles } from "./data/style-guide"
-import { Diagram, DiagramRow, DiagramCol, DiagramNode } from './components/Diagram';
+import { Diagram, DiagramRow, DiagramCol, DiagramNode } from "./components/Diagram";
+import { getMermaidDiagram } from './utils/mermaidDiagrams';
 import { CSSProperties } from "react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { MermaidChart } from './components/MermaidChart';
+const dataOfertas = [
+  { tecnologia: 'React', ofertas: 120 },
+  { tecnologia: 'Java', ofertas: 90 },
+  { tecnologia: 'Python', ofertas: 80 },
+  { tecnologia: 'Node.js', ofertas: 60 },
+];
 
-const ArrowDown = () => (
-  <div className="d-arrow-down">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="12" y1="4" x2="12" y2="20"></line>
-      <polyline points="6 14 12 20 18 14"></polyline>
-    </svg>
+
+const OfertasChart = () => (
+  <div style={{ width: '100%', height: 300, marginTop: '2rem' }}>
+    <h3>Ofertas por tecnología</h3>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={dataOfertas} accessibilityLayer>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="tecnologia" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="ofertas" fill="var(--border-color)" />
+      </BarChart>
+    </ResponsiveContainer>
   </div>
 );
+const ArrowDown = () => <div className="pro-arrow" />;
+
 
 const filas = [
   {
-    elemento: "A · Botones",
+    elemento: "Botones",
     regla: "Botón primario para la acción principal (máx. 1 por vista); secundario para acciones alternativas; terciario (boton de texto) para acciones de baja prioridad.",
     porQue: "Jerarquiza la acción esperada, evita competencia visual entre CTAs y comunica si el botón está disponible o procesando.",
     donde: "Formularios, modales, cabecera de sección, barras de acciones",
   },
   {
-    elemento: "A · Botones de icono · Redes sociales y utilidades",
+    elemento: "Botones de icono · Redes sociales y utilidades",
     regla: "Icono + color marca; tamaño táctil mínimo 44×44 px (icono 24 px); incluir aria-label siempre, también en compartir, guardar y similares.",
     porQue: "Reconocimiento inmediato del canal, accesibilidad para lectores de pantalla y usabilidad táctil (WCAG 2.2).",
     donde: "Footer, sección de contacto, tarjetas de autor, barra de acciones",
   },
   {
-    elemento: "B · Campos",
+    elemento: "Campos",
     regla: "Label(titulo del campo) visible siempre arriba; placeholder solo como ejemplo, nunca sustituto del label. El error incluye texto descriptivo asociado (aria-describedby).",
     porQue: "Mejora accesibilidad (WCAG) y reduce errores de llenado; sin estados el campo no comunica si está bloqueado o inválido.",
     donde: "Login, registro, checkout, edición de perfil",
   },
   {
-    elemento: "B · Componentes de búsqueda",
+    elemento: "Componentes de búsqueda",
     regla: "Input con icono lupa, ancho mínimo 240 px. Botón de limpiar (✕) visible solo cuando hay texto; aria-label en input y botón; estado loading mientras se obtienen resultados.",
     porQue: "Feedback inmediato, evita peticiones innecesarias y aclara cuándo hay una búsqueda en curso.",
     donde: "Header, listados, tablas filtrables",
   },
   {
-    elemento: "B · Selects y combobox",
+    elemento: "Selects y combobox",
     regla: "Label visible; placeholder como opción deshabilitada («Selecciona…»); soporte de teclado (flechas, Enter, Esc); estados abierto/cerrado y opción seleccionada visibles.",
     porQue: "Los filtros por categoría, ubicación o modalidad son claves en el proyecto, sin teclado ni estados el filtrado se vuelve inaccesible.",
     donde: "Filtros de ofertas, formularios de perfil, configuración",
   },
   {
-    elemento: "B · Checkboxes y radios",
+    elemento: "Checkboxes y radios",
     regla: "Checkbox para selección múltiple; radio para opción excluyente. Área táctil mínima 44×44 px; label clicable; estados focus-visible y disabled definidos.",
     porQue: "La selección de tecnologías y los filtros excluyentes necesitan controles claros y accesibles.",
     donde: "Filtros de búsqueda, preferencias, formularios",
   },
   {
-    elemento: "B · Toggles / switches",
+    elemento: "Toggles / switches",
     regla: "Switch para activar o desactivar ajustes con efecto inmediato; incluir label y estado on/off con texto o aria-checked.",
     porQue: "Notificaciones y visibilidad del perfil se gestionan mejor con un control de estado explícito.",
     donde: "Configuración de cuenta, preferencias de notificaciones",
   },
   {
-    elemento: "C · Estados · Disponibilidad",
+    elemento: "Estados · Disponibilidad",
     regla: "Verde = disponible, ámbar = limitado, rojo = agotado; siempre con icono (✓ ⚠ ✕) y texto explícito, no solo color.",
     porQue: "Accesibilidad para daltónicos y claridad semántica; la combinación color + icono + texto es el estándar WCAG.",
     donde: "Listados de ofertas, reservas, agenda",
   },
   {
-    elemento: "C · Badges e indicadores numéricos",
+    elemento: "Badges e indicadores numéricos",
     regla: "Badge compacto (padding 2–6 px, texto 12 px) para conteos de notificaciones, postulaciones o resultados. Si supera 99 mostrar «99+»; incluir aria-label con el número completo.",
     porQue: "Comunica volumen de información sin recargar la interfaz y sin perder accesibilidad.",
     donde: "Header, tabs, iconos de notificación, filtros",
   },
   {
-    elemento: "D · Mensajes",
+    elemento: "Mensajes",
     regla: "Info (azul), éxito (verde), advertencia (ámbar), error (rojo). Autocierre solo en éxito e info.",
     porQue: "Consistencia cromática y permite al usuario leer y actuar ante errores antes de que desaparezcan.",
     donde: "Toasts, banners, validaciones inline",
   },
   {
-    elemento: "E · Etiquetas · Tecnologías",
+    elemento: "Etiquetas · Tecnologías",
     regla: "Se forma con el logo de la tecnologia + nombre + color descriptivo de fondo y bordes, texto 12 px. No interactivas salvo que actúen como filtro.",
     porQue: "Permite añadir de forma descriptiva las tecnologias o habilidades de un perfil.",
     donde: "Tarjetas de proyecto, perfiles",
+  },
+  {
+    elemento: "Logotipo y cabecera",
+    regla: "Logotipo principal (pingüino + texto) en la cabecera en escritorio; en pantallas estrechas, solo el icono y un menú desplegable. Sobre fondo oscuro, versión invertida (texto blanco). Nunca se deforma ni recolorea.",
+    porQue: "El nombre completo no cabe en móvil junto al menú. Mantener el logotipo intacto conserva la identidad de marca en cualquier dispositivo o tamaño de pantalla.",
+    donde: "Todas las pantallas (Header superior y Footer)",
+  },
+  {
+    elemento: "Tipografía",
+    regla: "Playfair Display (Serif) solo en títulos (página, bloque y tarjetas). Inter (Sans-serif) en todo lo demás (textos, interfaz, tablas). Tamaño base de 16 px para textos y nunca menos de 12 px para etiquetas.",
+    porQue: "Playfair Display aporta personalidad editorial y jerarquía visual, mientras que Inter está diseñada para pantallas, garantizando legibilidad en tablas y formularios sin fatigar la vista.",
+    donde: "Todas las pantallas",
   },
 ];
 
@@ -568,126 +598,178 @@ export default function App() {
             <p>La aplicación se organiza en dos grandes áreas. La separación entre consulta/exploración y gestión se mantiene clara: un usuario final no ve las herramientas administrativas.</p>
           </div>
 
-          <div className="diagram-wrapper">
-            <div className="diagram-top">
-              <div className="d-box center">
-                <h4>Acceso</h4>
-                <p>Inicio de sesión. Redirige según el rol.</p>
-                <div className="d-badges" style={{ justifyContent: "center" }}>
-                  <span className="d-badge">Demandante</span>
-                  <span className="d-badge">Reclutador</span>
-                  <span className="d-badge">Admin.</span>
-                </div>
+          <div className="estructura-container">
+
+            {/* CAJA SUPERIOR: ACCESO */}
+            <div className="estructura-acceso">
+              <h3>Acceso</h3>
+              <p>Inicio y cierre de sesión. Cada usuario llega a la pantalla principal de su rol.</p>
+              <div className="estructura-badges" style={{ justifyContent: 'center' }}>
+                <span className="estructura-badge socio">Demandante</span>
+                <span className="estructura-badge resp">Reclutador</span>
+                <span className="estructura-badge admin">Admin.</span>
               </div>
             </div>
 
-            <ArrowDown />
+            {/* FLECHAS HACIA ABAJO */}
+            <div className="estructura-arrows">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 4v16m-6-6 6 6 6-6" /></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 4v16m-6-6 6 6 6-6" /></svg>
+            </div>
 
-            <div className="d-split-container">
-              {/* COLUMNA IZQUIERDA */}
-              <div className="d-column">
-                <div style={{ textAlign: "center", marginBottom: "0.5rem", fontWeight: 700, fontSize: "0.9rem", color: "var(--text-muted)" }}>
-                  CONSULTA Y EXPLORACIÓN
+            {/* LAYOUT DE DOS COLUMNAS */}
+            <div className="estructura-split">
+
+              {/* COLUMNA IZQUIERDA: CONSULTA */}
+              <div className="estructura-zona consulta">
+                <div className="estructura-zona-title">Consulta y Exploración</div>
+
+                <div className="estructura-area consulta-box">
+                  <h4>Ranking de Tecnologias Demandadas</h4>
+                  <p>Consultar y filtrar tecnologías.</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge socio">Demandante</span>
+                  </div>
                 </div>
-                <div className="d-box">
-                  <h4>Ranking y Búsqueda</h4>
-                  <p>Descubrir tecnologías, buscar ofertas de empleo y explorar perfiles de otros profesionales.</p>
-                  <div className="d-badges"><span className="d-badge filled">Demandante</span></div>
+
+                <div className="estructura-area consulta-box">
+                  <h4>Búsqueda de Empleo</h4>
+                  <p>Buscar ofertas de empleo</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge socio">Demandante</span>
+                  </div>
                 </div>
-                <div className="d-box">
+
+                <div className="estructura-area consulta-box">
+                  <h4>Visualizacion de Candidatos</h4>
+                  <p>Revisión y filtrado de perfiles.</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge resp">Reclutador</span>
+                  </div>
+                </div>
+
+                <div className="estructura-area consulta-box">
+                  <h4>Visualizacion de Ofertas</h4>
+                  <p>Revision y filtrado de ofertas de empleo.</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge socio">Demandante</span>
+                  </div>
+                </div>
+
+                <div className="estructura-area consulta-box">
                   <h4>Recursos de aprendizaje</h4>
-                  <p>Acceso a documentación, cursos de introducción y ejercicios prácticos.</p>
-                  <div className="d-badges"><span className="d-badge filled">Demandante</span></div>
+                  <p>Acceso a documentación oficial, cursos de introducción y ejercicios prácticos.</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge socio">Demandante</span>
+                  </div>
                 </div>
-                <div className="d-box">
+
+                <div className="estructura-area consulta-box">
                   <h4>Mi Perfil y Favoritos</h4>
-                  <p>Edición de datos personales, habilidades tecnológicas y gestión de perfiles guardados.</p>
-                  <div className="d-badges"><span className="d-badge filled">Demandante</span></div>
+                  <p>Edición de datos personales, gestión de habilidades tecnológicas y perfiles guardados.</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge socio">Demandante</span>
+                    <span className="estructura-badge resp">Reclutador</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="d-split-line"></div>
+              {/* LÍNEA DIVISORIA CENTRAL */}
+              <div className="estructura-divisor">
+              </div>
 
-              {/* COLUMNA DERECHA */}
-              <div className="d-column">
-                <div style={{ textAlign: "center", marginBottom: "0.5rem", fontWeight: 700, fontSize: "0.9rem", color: "var(--text-muted)" }}>
-                  GESTIÓN Y ADMINISTRACIÓN
-                </div>
-                <div className="d-box">
-                  <h4>Gestión de Candidaturas</h4>
-                  <p>Revisión de candidatos, contacto directo y gestión del estado de las ofertas publicadas.</p>
-                  <div className="d-badges"><span className="d-badge">Reclutador</span></div>
-                </div>
-                <div className="d-box">
-                  <h4>Gestión de Ofertas</h4>
-                  <p>Creación, edición y publicación de nuevas ofertas de empleo en la plataforma.</p>
-                  <div className="d-badges"><span className="d-badge">Reclutador</span></div>
-                </div>
-                <div className="d-box">
-                  <h4>Administración del Sistema</h4>
-                  <p>Control total de usuarios, roles, categorías de tecnologías y visualización de métricas.</p>
-                  <div className="d-badges"><span className="d-badge filled">Admin.</span></div>
+              {/* COLUMNA DERECHA: GESTIÓN */}
+              <div className="estructura-zona gestion">
+                <div className="estructura-zona-title">Gestión y Administración</div>
+
+                {/* CAJA DE ADMINISTRADOR (Colores corregidos) */}
+                <div className="estructura-area admin-box">
+                  <h4 style={{ color: '#2A2529' }}>Administración del Sistema</h4>
+                  <p>Gestion de bases de datos, Control total de usuarios, roles, categorías de tecnologías y métricas globales.</p>
+                  <div className="estructura-badges">
+                    <span className="estructura-badge admin">Admin.</span>
+                  </div>
                 </div>
               </div>
+
+            </div>
+          </div>
+
+          {/* ========================================================= */}
+          {/* SECCIÓN 05.1: ACCESOS SEGÚN EL TIPO DE USUARIO */}
+          {/* ========================================================= */}
+          <div className="identity-block" style={{ marginTop: '60px' }}>
+            <h2>5.1 Accesos según el tipo de usuario</h2>
+
+            <div className="identity-table-wrap">
+              <table className="identity-table">
+                <thead>
+                  <tr>
+                    <th scope="col" style={{ width: '20%' }}>Tipo de usuario</th>
+                    <th scope="col" style={{ width: '45%' }}>Áreas a las que accede</th>
+                    <th scope="col" style={{ width: '35%' }}>Áreas a las que NO accede</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Demandante</th>
+                    <td>
+                      Acceso · Ranking de Tecnologías Demandadas · Búsqueda de Empleo · Visualización de Ofertas · Recursos de aprendizaje · Mi Perfil y Favoritos
+                    </td>
+                    <td>
+                      Visualización de Candidatos · Administración del Sistema
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Reclutador</th>
+                    <td>
+                      Acceso · Visualización de Candidatos · Mi Perfil y Favoritos
+                    </td>
+                    <td>
+                      Ranking de Tecnologías Demandadas · Búsqueda de Empleo · Visualización de Ofertas · Recursos de aprendizaje · Administración del Sistema
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Administrador/a</th>
+                    <td>
+                      Acceso · Administración del Sistema
+                    </td>
+                    <td>
+                      Ranking de Tecnologías Demandadas · Búsqueda de Empleo · Visualización de Candidatos · Visualización de Ofertas · Recursos de aprendizaje · Mi Perfil y Favoritos
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
 
-        {/* 06. MAPA DE NAVEGACIÓN */}
+        {/* ========================================================= */}
+        {/* SECCIÓN 06: MAPA DE NAVEGACIÓN (Mermaid.js) */}
+        {/* ========================================================= */}
         <section id="navegación">
           <div className="section-heading">
             <div className="eyebrow"><span>06</span> Mapa de navegación</div>
-            <p>El mapa muestra las pantallas principales agrupadas por rol, las relaciones entre ellas y los recorridos más habituales.</p>
+            <p>El mapa detalla el flujo del sistema para el perfil activo (<strong>{profile === "candidate" ? "Demandante" : profile === "recruiter" ? "Reclutador" : "Administrador"}</strong>). Las líneas discontinuas representan acciones secundarias o menús globales.</p>
           </div>
 
-          <div className="diagram-wrapper">
-            <div className="diagram-top">
-              <div className="d-box center">
-                <h4>Inicio de sesión</h4>
-                <p>Redirige según el rol</p>
+          <div className="pro-diagram" style={{ padding: '2rem', overflowX: 'auto' }}>
+            <MermaidChart chart={getMermaidDiagram(profile)} profile={profile} />
+
+            {/* LEYENDA DE LA SECCIÓN 06 */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '2rem', fontSize: '0.8rem', color: 'var(--muted)', borderTop: '1px solid var(--line)', paddingTop: '1.5rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ display: 'inline-block', width: '20px', height: '2px', background: 'var(--forest)' }}></span>
+                Navegación principal
               </div>
-            </div>
-
-            <ArrowDown />
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem", width: "100%", marginTop: "1rem" }}>
-
-              {/* DEMANDANTE */}
-              <div className="d-zone" style={{ borderTopColor: "var(--border-color)" }}>
-                <span className="d-badge filled" style={{ marginBottom: "0.5rem" }}>DEMANDANTE</span>
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Ranking de tecnologías</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Recursos de aprendizaje</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Ofertas de empleo</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Detalle y postulación</h4></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ display: 'inline-block', width: '20px', height: '2px', borderTop: '2px dashed var(--forest)' }}></span>
+                Menú global (ida y vuelta)
               </div>
-
-              {/* RECLUTADOR */}
-              <div className="d-zone" style={{ borderTopColor: "var(--border-color)" }}>
-                <span className="d-badge filled" style={{ marginBottom: "0.5rem" }}>RECLUTADOR</span>
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Panel de Control</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Buscar Candidatos</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Detalle del Candidato</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto", borderStyle: "dashed" }}><h4>[ Contactar / Entrevistar ]</h4></div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span style={{ display: 'inline-block', width: '20px', height: '15px', border: '2px dashed var(--forest)', borderRadius: '4px' }}></span>
+                Acción secundaria (Modales / Confirmaciones)
               </div>
-
-              {/* ADMINISTRADOR */}
-              <div className="d-zone" style={{ borderTopColor: "var(--border-color)" }}>
-                <span className="d-badge filled" style={{ marginBottom: "0.5rem" }}>ADMINISTRADOR</span>
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Usuarios y Roles</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Gestión de Categorías</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Métricas Globales</h4></div>
-                <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto", borderStyle: "dashed" }}><h4>[ Exportar Datos ]</h4></div>
-              </div>
-
             </div>
           </div>
         </section>
@@ -813,6 +895,6 @@ export default function App() {
           </div>
         </section>
       </main>
-    </div>
+    </div >
   )
 }
