@@ -562,8 +562,6 @@ export default function App() {
             ))}
           </div>
         </section>
-
-        <ComponentShowcase />
         <section id="estructura">
           <div className="section-heading">
             <div className="eyebrow"><span>05</span> Estructura general</div>
@@ -571,7 +569,6 @@ export default function App() {
           </div>
 
           <div className="diagram-wrapper">
-            {/* Top: Acceso */}
             <div className="diagram-top">
               <div className="d-box center">
                 <h4>Acceso</h4>
@@ -586,83 +583,58 @@ export default function App() {
 
             <ArrowDown />
 
-            {/* Split: Consulta vs Gestión */}
             <div className="d-split-container">
-
-              {/* COLUMNA IZQUIERDA: CONSULTA Y EXPLORACIÓN */}
+              {/* COLUMNA IZQUIERDA */}
               <div className="d-column">
                 <div style={{ textAlign: "center", marginBottom: "0.5rem", fontWeight: 700, fontSize: "0.9rem", color: "var(--text-muted)" }}>
                   CONSULTA Y EXPLORACIÓN
                 </div>
-
                 <div className="d-box">
                   <h4>Ranking y Búsqueda</h4>
                   <p>Descubrir tecnologías, buscar ofertas de empleo y explorar perfiles de otros profesionales.</p>
-                  <div className="d-badges">
-                    <span className="d-badge filled">Demandante</span>
-                  </div>
+                  <div className="d-badges"><span className="d-badge filled">Demandante</span></div>
                 </div>
-
                 <div className="d-box">
                   <h4>Recursos de aprendizaje</h4>
                   <p>Acceso a documentación, cursos de introducción y ejercicios prácticos.</p>
-                  <div className="d-badges">
-                    <span className="d-badge filled">Demandante</span>
-                  </div>
+                  <div className="d-badges"><span className="d-badge filled">Demandante</span></div>
                 </div>
-
                 <div className="d-box">
                   <h4>Mi Perfil y Favoritos</h4>
                   <p>Edición de datos personales, habilidades tecnológicas y gestión de perfiles guardados.</p>
-                  <div className="d-badges">
-                    <span className="d-badge filled">Demandante</span>
-                  </div>
+                  <div className="d-badges"><span className="d-badge filled">Demandante</span></div>
                 </div>
               </div>
 
-              {/* LÍNEA DIVISORIA CENTRAL */}
               <div className="d-split-line"></div>
 
-              {/* COLUMNA DERECHA: GESTIÓN Y ADMINISTRACIÓN */}
+              {/* COLUMNA DERECHA */}
               <div className="d-column">
                 <div style={{ textAlign: "center", marginBottom: "0.5rem", fontWeight: 700, fontSize: "0.9rem", color: "var(--text-muted)" }}>
                   GESTIÓN Y ADMINISTRACIÓN
                 </div>
-
                 <div className="d-box">
                   <h4>Gestión de Candidaturas</h4>
                   <p>Revisión de candidatos, contacto directo y gestión del estado de las ofertas publicadas.</p>
-                  <div className="d-badges">
-                    <span className="d-badge">Reclutador</span>
-                  </div>
+                  <div className="d-badges"><span className="d-badge">Reclutador</span></div>
                 </div>
-
                 <div className="d-box">
                   <h4>Gestión de Ofertas</h4>
                   <p>Creación, edición y publicación de nuevas ofertas de empleo en la plataforma.</p>
-                  <div className="d-badges">
-                    <span className="d-badge">Reclutador</span>
-                  </div>
+                  <div className="d-badges"><span className="d-badge">Reclutador</span></div>
                 </div>
-
                 <div className="d-box">
                   <h4>Administración del Sistema</h4>
                   <p>Control total de usuarios, roles, categorías de tecnologías y visualización de métricas.</p>
-                  <div className="d-badges">
-                    <span className="d-badge filled">Admin.</span>
-                  </div>
+                  <div className="d-badges"><span className="d-badge filled">Admin.</span></div>
                 </div>
               </div>
-
             </div>
           </div>
         </section>
 
-
-        {/* ========================================================= */}
-        {/* SECCIÓN 06: MAPA DE NAVEGACIÓN (Recreación del ejemplo 2) */}
-        {/* ========================================================= */}
-        <section id="navegacion">
+        {/* 06. MAPA DE NAVEGACIÓN */}
+        <section id="navegación">
           <div className="section-heading">
             <div className="eyebrow"><span>06</span> Mapa de navegación</div>
             <p>El mapa muestra las pantallas principales agrupadas por rol, las relaciones entre ellas y los recorridos más habituales.</p>
@@ -678,136 +650,53 @@ export default function App() {
 
             <ArrowDown />
 
-            {/* Grid de 3 columnas para los mapas de navegación */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem", width: "100%", marginTop: "1rem" }}>
 
-              {/* COLUMNA DEMANDANTE */}
+              {/* DEMANDANTE */}
               <div className="d-zone" style={{ borderTopColor: "var(--border-color)" }}>
                 <span className="d-badge filled" style={{ marginBottom: "0.5rem" }}>DEMANDANTE</span>
-
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Ranking de tecnologías</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Ranking de tecnologías</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Recursos de aprendizaje</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Recursos de aprendizaje</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Ofertas de empleo</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Ofertas de empleo</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Detalle y postulación</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Detalle y postulación</h4></div>
               </div>
 
-              {/* COLUMNA RECLUTADOR */}
+              {/* RECLUTADOR */}
               <div className="d-zone" style={{ borderTopColor: "var(--border-color)" }}>
                 <span className="d-badge filled" style={{ marginBottom: "0.5rem" }}>RECLUTADOR</span>
-
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Panel de Control</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Panel de Control</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Buscar Candidatos</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Buscar Candidatos</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Detalle del Candidato</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Detalle del Candidato</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto", borderStyle: "dashed" }}>
-                  <h4>[ Contactar / Entrevistar ]</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto", borderStyle: "dashed" }}><h4>[ Contactar / Entrevistar ]</h4></div>
               </div>
 
-              {/* COLUMNA ADMINISTRADOR */}
+              {/* ADMINISTRADOR */}
               <div className="d-zone" style={{ borderTopColor: "var(--border-color)" }}>
                 <span className="d-badge filled" style={{ marginBottom: "0.5rem" }}>ADMINISTRADOR</span>
-
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Usuarios y Roles</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Usuarios y Roles</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Gestión de Categorías</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Gestión de Categorías</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}>
-                  <h4>Métricas Globales</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto" }}><h4>Métricas Globales</h4></div>
                 <ArrowDown />
-                <div className="d-box center" style={{ width: "100%", minWidth: "auto", borderStyle: "dashed" }}>
-                  <h4>[ Exportar Datos ]</h4>
-                </div>
+                <div className="d-box center" style={{ width: "100%", minWidth: "auto", borderStyle: "dashed" }}><h4>[ Exportar Datos ]</h4></div>
               </div>
 
             </div>
           </div>
         </section>
 
-        <section id="navegacion">
-          <div className="section-heading">
-            <div className="eyebrow"><span>06</span> Mapa de navegación</div>
-            <p>El mapa detalla el recorrido específico del perfil activo...</p>
-          </div>
+        {/* 07. COMPONENTES */}
+        <div id="componentes">
+          <ComponentShowcase />
+        </div>
 
-          <Diagram>
-            <DiagramNode variant="access" data-connector="down">
-              <strong>Inicio de sesión</strong>
-            </DiagramNode>
-
-            <DiagramNode variant="menu" color="candidate" data-connector="branch">
-              <strong>MENÚ GLOBAL (Navbar)</strong>
-              <small>Permite saltar entre cualquier pantalla principal</small>
-            </DiagramNode>
-
-            <DiagramRow>
-              <DiagramCol>
-                <DiagramNode color="candidate" data-connector="down">
-                  <strong>Ranking de tecnologías</strong>
-                </DiagramNode>
-                <DiagramNode color="candidate">
-                  <strong>Recursos de aprendizaje</strong>
-                </DiagramNode>
-              </DiagramCol>
-              <DiagramCol>
-                <DiagramNode color="candidate">
-                  <strong>Ofertas de empleo</strong>
-                </DiagramNode>
-              </DiagramCol>
-              <DiagramCol>
-                <DiagramNode color="candidate" data-connector="down">
-                  <strong>Buscar perfiles</strong>
-                </DiagramNode>
-                <DiagramNode color="candidate" data-connector="down">
-                  <strong>Detalle del perfil</strong>
-                </DiagramNode>
-                <DiagramNode variant="action" color="candidate">
-                  [ Añadir a Favoritos ]
-                </DiagramNode>
-              </DiagramCol>
-              <DiagramCol>
-                <DiagramNode color="candidate" data-connector="down">
-                  <strong>Perfiles favoritos</strong>
-                </DiagramNode>
-                <DiagramNode variant="action" color="candidate">
-                  [ Estado: No hay perfiles ]
-                </DiagramNode>
-              </DiagramCol>
-              <DiagramCol>
-                <DiagramNode color="candidate" data-connector="down">
-                  <strong>Mi perfil</strong>
-                </DiagramNode>
-                <DiagramNode variant="action" color="candidate">
-                  [ Guardar cambios ]
-                </DiagramNode>
-              </DiagramCol>
-            </DiagramRow>
-          </Diagram>
-        </section>
         <section id="criterios-de-uso">
           <div className="section-heading">
             <div className="eyebrow">
