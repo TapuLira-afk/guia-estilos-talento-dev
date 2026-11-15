@@ -5,7 +5,7 @@ const imgPenguinBody = `${assetPathPrefix}/17594.svg`
 const imgEyes = `${assetPathPrefix}/2c7d7.svg`
 const imgBeak = `${assetPathPrefix}/a9d74.svg`
 const imgFeet = `${assetPathPrefix}/8cb0a.svg`
-const roleIcons: Record<string, { cap: string code: string }> = {
+const roleIcons: Record<string, { cap: string; code: string }> = {
   admin: {
     cap: `${assetPathPrefix}/48ba9.svg`,
     code: `${assetPathPrefix}/bd158.svg`,

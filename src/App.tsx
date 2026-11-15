@@ -1,36 +1,189 @@
 import { useState } from "react"
 import { BrandIcon, useProfileFavicon } from "./components/BrandIcon"
 import { ComponentShowcase } from "./components/ComponentShowcase"
-import { navItems, palettes, profiles, diagramStyles } from "./data/style-guide"
-import { Diagram, DiagramRow, DiagramCol, DiagramNode } from "./components/Diagram";
+import { navItems, palettes, profiles } from "./data/style-guide"
 import { getMermaidDiagram } from './utils/mermaidDiagrams';
-import { CSSProperties } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { MermaidChart } from './components/MermaidChart';
-const dataOfertas = [
-  { tecnologia: 'React', ofertas: 120 },
-  { tecnologia: 'Java', ofertas: 90 },
-  { tecnologia: 'Python', ofertas: 80 },
-  { tecnologia: 'Node.js', ofertas: 60 },
+
+const vistasData = [
+  {
+    id: "iniciar-sesion",
+    title: "Inicio de sesión",
+    imgName: "iniciosesion.png", // Asegúrate de que el nombre coincida con tu imagen
+    profiles: ["admin", "candidate", "recruiter"],
+    objetivo: "Permitir a los usuarios acceder a su cuenta en la plataforma.",
+    acciones: "Introducir correo y contraseña, marcar 'Recordar sesión', iniciar sesión, recuperar contraseña o ir al registro.",
+    navegacion: "Llega desde: Acceso directo. Lleva a: Pantalla principal del rol correspondiente (Demandante, Reclutador o Administrador).",
+    rf: "RF13: El sistema permitirá iniciar sesión y cerrarla.",
+    decisiones: "Formulario simple y centrado, con enlaces claros para recuperación de contraseña y registro. Campos de texto con iconos para mostrar/ocultar contraseña.",
+  },
+  {
+    id: "registro-cuenta",
+    title: "Registro de cuenta (Crea tu cuenta)",
+    imgName: "crearcuenta.png", // Asegúrate de que el nombre coincida con tu imagen
+    profiles: ["admin", "candidate", "recruiter"],
+    objetivo: "Permitir a un nuevo usuario darse de alta en el sistema eligiendo su rol.",
+    acciones: "Seleccionar perfil (Reclutador / Demandante), rellenar datos (nombre, correo, contraseña), aceptar términos y condiciones, crear cuenta.",
+    navegacion: "Llega desde: Inicio de sesión (enlace 'Regístrate'). Lleva a: Pantalla principal del rol seleccionado.",
+    rf: "RF01: El sistema permitirá a los usuarios registrarse.",
+    decisiones: "Selector de rol destacado visualmente en la parte superior para adaptar la experiencia desde el primer paso. Formulario unificado con validación de contraseña y checkbox obligatorio de términos.",
+  },
+  {
+    id: "abrir-ticket",
+    title: "Abrir ticket",
+    imgName: "abrirticket.png",
+    profiles: ["admin"], // Generalmente todos los usuarios pueden abrir tickets, aunque la captura sea del admin
+    objetivo: "Permitir al usuario reportar una incidencia o problema técnico.",
+    acciones: "Rellenar formulario (título, prioridad, categoría, descripción), enviar o cancelar.",
+    navegacion: "Llega desde: Tickets / Nuevo ticket. Lleva a: Lista de tickets.",
+    rf: "N/A: No existe un RF específico para tickets de soporte en la tabla proporcionada.",
+    decisiones: "Formulario claro con campos obligatorios y texto de ayuda para no compartir datos sensibles.",
+  },
+  {
+    id: "tabla-datos",
+    title: "Tabla de Base de Datos",
+    imgName: "basedatos.png",
+    profiles: ["admin"],
+    objetivo: "Consultar y filtrar los registros de una tabla específica de la base de datos.",
+    acciones: "Buscar datos en la tabla, navegar por las páginas, acceder al mapa conceptual.",
+    navegacion: "Llega desde: Bases de datos > ItJobMarketAppDB. Lleva a: Mapa conceptual.",
+    rf: "RF17: El sistema permitirá acceder y gestionar a las bases de datos de los diferentes servicios.",
+    decisiones: "Tabla paginada con buscador integrado y botón destacado para ver el mapa conceptual.",
+  },
+  {
+    id: "borrar-usuario",
+    title: "Borrar usuario",
+    imgName: "borrarusuario.png",
+    profiles: ["admin"],
+    objetivo: "Buscar una cuenta y eliminarla del sistema.",
+    acciones: "Buscar por nombre/correo, revisar datos, hacer clic en el icono de la papelera.",
+    navegacion: "Llega desde: Gestión de usuarios. Lleva a: Misma vista actualizada.",
+    rf: "RF06: El sistema permitirá gestionar usuarios.",
+    decisiones: "Uso de iconos de papelera en rojo para acciones destructivas. Paginación de 50 en 50.",
+  },
+  {
+    id: "buscar-perfiles",
+    title: "Buscar perfiles",
+    imgName: "buscarperfil.png",
+    profiles: ["recruiter"],
+    objetivo: "Filtrar y visualizar perfiles de candidatos (Demandantes).",
+    acciones: "Filtrar por tecnología, experiencia, ubicación, buscar, marcar como favorito.",
+    navegacion: "Llega desde: Menú Búsqueda. Lleva a: Detalle del perfil.",
+    rf: "RF04: El sistema permitirá a los reclutadores buscar candidatos mediante filtros. / RF05: Mostrar lista de candidatos.",
+    decisiones: "Panel lateral de filtros fijo y tarjetas destacadas en color mostaza con habilidades y botón de favorito.",
+  },
+  {
+    id: "crear-usuario",
+    title: "Crear usuario",
+    imgName: "crearusuario.png",
+    profiles: ["admin"],
+    objetivo: "Dar de alta a un nuevo usuario en el sistema.",
+    acciones: "Rellenar formulario (nombre, rol, fecha nacimiento, sexo, correo, contraseña), crear.",
+    navegacion: "Llega desde: Gestión de usuarios. Lleva a: Lista de usuarios.",
+    rf: "RF06: El sistema permitirá gestionar usuarios.",
+    decisiones: "Formulario de dos columnas con validación de contraseña segura y selector de rol.",
+  },
+  {
+    id: "detalle-perfil",
+    title: "Detalle de perfil",
+    imgName: "detallesperfil.png",
+    profiles: ["recruiter"],
+    objetivo: "Visualizar la información completa de un candidato.",
+    acciones: "Leer descripción, revisar tecnologías y leer experiencia.",
+    navegacion: "Llega desde: Buscar perfiles. Lleva a: Búsqueda de perfiles (al volver).",
+    rf: "RF05: El sistema mostrará una lista de candidatos ordenada según los criterios de búsqueda.",
+    decisiones: "Bloques visuales separados por tarjetas blancas con fondo contrastado para destacar la información.",
+  },
+  {
+    id: "mapa-conceptual",
+    title: "Mapa conceptual",
+    imgName: "mapaconceptual.png",
+    profiles: ["admin"],
+    objetivo: "Visualizar la estructura lógica de la tabla seleccionada.",
+    acciones: "Ver estado vacío (El mapa aún no está disponible).",
+    navegacion: "Llega desde: Tabla de Base de Datos. Lleva a: Tabla de Base de Datos (con botón volver).",
+    rf: "RF17: El sistema permitirá acceder y gestionar a las bases de datos de los diferentes servicios.",
+    decisiones: "Estado vacío elegante con icono y texto claro cuando no hay mapa cargado.",
+  },
+  {
+    id: "modificar-usuario",
+    title: "Modificar usuario",
+    imgName: "modficarusuario.png",
+    profiles: ["admin"],
+    objetivo: "Actualizar la información y permisos de una cuenta.",
+    acciones: "Editar nombre, apellidos, rol, fecha, sexo, correo, actualizar contraseña.",
+    navegacion: "Llega desde: Gestión de usuarios. Lleva a: Lista de usuarios.",
+    rf: "RF06: El sistema permitirá gestionar usuarios.",
+    decisiones: "Carga automática de datos. Campos de contraseña vacíos por defecto para conservar la actual.",
+  },
+  {
+    id: "ranking-tecnologias",
+    title: "Ranking de tecnologías",
+    imgName: "ranking.png",
+    profiles: ["candidate"],
+    objetivo: "Descubrir las tecnologías más demandadas por las empresas.",
+    acciones: "Filtrar por tecnología, ubicación, modalidad; buscar; desplegar recursos; guardar en favoritos.",
+    navegacion: "Llega desde: Menú principal (Demandante). Lleva a: Recursos de aprendizaje.",
+    rf: "RF08: El sistema contará con una vista detallada de un ranking de los requisitos más demandados actualmente en las ofertas de empleo.",
+    decisiones: "Listado en tarjetas con numeración destacada y un desplegable para ver los recursos.",
+  },
+  {
+    id: "mi-perfil-reclutador",
+    title: "Mi perfil (Reclutador)",
+    imgName: "perfil.png",
+    profiles: ["recruiter"],
+    objetivo: "Permitir al usuario gestionar su propia información personal y credenciales.",
+    acciones: "Editar nombre, correo, contraseña, guardar cambios.",
+    navegacion: "Llega desde: Menú usuario (Mi perfil). Lleva a: Misma vista actualizada.",
+    rf: "RF03: El sistema permitirá a los reclutadores tener y modificar su propio perfil.",
+    decisiones: "Interfaz visual con avatar, tarjeta de resumen a la izquierda y formulario a la derecha.",
+  },
+  {
+    id: "ofertas-empleo",
+    title: "Ofertas de empleo",
+    imgName: "ofertas.png",
+    profiles: ["candidate"],
+    objetivo: "Consultar oportunidades de empleo y su compatibilidad con el perfil.",
+    acciones: "Buscar ofertas y filtrar por tecnología, ubicación y modalidad; revisar tecnologías y actitudes.",
+    navegacion: "Llega desde: Navegación principal. Lleva a: Ranking, Recursos o Mi perfil.",
+    rf: "RF11: El sistema contará con una vista de ofertas de empleo.",
+    decisiones: "Las tarjetas reúnen la oferta, sus tecnologías y actitudes, y una puntuación de compatibilidad.",
+  },
+  {
+    id: "recursos-aprendizaje",
+    title: "Recursos de aprendizaje",
+    imgName: "recursos.png",
+    profiles: ["candidate"],
+    objetivo: "Consultar recursos de estudio vinculados a una tecnología demandada.",
+    acciones: "Consultar documentación oficial, cursos de introducción y ejercicios prácticos.",
+    navegacion: "Llega desde: Recursos del ranking o la navegación. Lleva a: Ranking, Ofertas o Mi perfil.",
+    rf: "RF10: El sistema permitirá consultar recursos de estudio desde cada requisito de la vista.",
+    decisiones: "Los recursos se agrupan bajo la tecnología seleccionada y su número de ofertas.",
+  },
+  {
+    id: "perfil-demandante",
+    title: "Mi perfil (Demandante)",
+    imgName: "perfildemadante.png",
+    profiles: ["candidate"],
+    objetivo: "Consultar y gestionar el perfil del demandante de empleo.",
+    acciones: "Editar nombre, correo y contraseña; añadir tecnologías; guardar cambios o cancelar.",
+    navegacion: "Llega desde: Mi perfil. Lleva a: Ranking, Ofertas y Recursos de aprendizaje.",
+    rf: "RF02: El sistema permitirá a los demandantes de empleo crear y gestionar su perfil.",
+    decisiones: "Los datos actuales y el formulario de edición se muestran juntos, con guardar y cancelar separados.",
+  },
+  {
+    id: "perfiles-favoritos",
+    title: "Perfiles favoritos",
+    imgName: "perfilesfavoritos.png", // Asegúrate de que coincida con el nombre de tu archivo
+    profiles: ["recruiter"],
+    objetivo: "Consultar y gestionar los perfiles de candidatos que han sido guardados como favoritos.",
+    acciones: "Revisar la lista de perfiles guardados, consultar sus habilidades y los criterios de búsqueda, y desmarcar el perfil como favorito.",
+    navegacion: "Llega desde: Menú superior ('Perfiles Fav'). Lleva a: Detalle del perfil (al hacer clic sobre un candidato).",
+    rf: "RF16: El sistema permitirá enviar notificaciones si perfiles guardados en favoritos, si sufre alguna modificación. (Nota: Este RF implica la existencia de una gestión de favoritos).",
+    decisiones: "Se reutiliza el diseño de tarjetas en color mostaza de la vista de búsqueda para mantener la coherencia. Se añade una línea de 'Criterio de búsqueda' para dar contexto de por qué se guardó ese perfil y se mantiene el icono de corazón para poder quitarlo de la lista.",
+  },
 ];
-
-
-const OfertasChart = () => (
-  <div style={{ width: '100%', height: 300, marginTop: '2rem' }}>
-    <h3>Ofertas por tecnología</h3>
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart data={dataOfertas} accessibilityLayer>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="tecnologia" />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="ofertas" fill="var(--border-color)" />
-      </BarChart>
-    </ResponsiveContainer>
-  </div>
-);
-const ArrowDown = () => <div className="pro-arrow" />;
-
 
 const filas = [
   {
@@ -851,7 +1004,61 @@ export default function App() {
             </div>
           </div>
         </section>
+        {/* ========================================================= */}
+        {/* SECCIÓN 07: VISTAS DEL PROYECTO */}
+        {/* ========================================================= */}
+        <section id="vistas">
+          <div className="section-heading">
+            <div className="eyebrow">
+              <span>07</span> Vistas del sistema
+            </div>
+            <p>
+              Explora las pantallas principales disponibles para el perfil activo: <strong>{profile === "candidate" ? "Demandante" : profile === "recruiter" ? "Reclutador" : "Administrador"}</strong>.
+            </p>
+          </div>
 
+          <div className="views-list">
+            {vistasData
+              .filter((vista) => vista.profiles.includes(profile))
+              .map((vista, index) => (
+                <article className="view-row" key={vista.id}>
+                  <div className="view-image">
+                    <span className="view-index">{String(index + 1).padStart(2, '0')}</span>
+                    <img src={`/images/${vista.imgName}`} alt={vista.title} loading="lazy" />
+                  </div>
+
+                  <div className="view-content">
+                    <h3>{vista.title}</h3>
+
+                    <table className="view-specs-table">
+                      <tbody>
+                        <tr>
+                          <th>Objetivo</th>
+                          <td>{vista.objetivo}</td>
+                        </tr>
+                        <tr>
+                          <th>Acciones</th>
+                          <td>{vista.acciones}</td>
+                        </tr>
+                        <tr>
+                          <th>Llega desde / lleva a</th>
+                          <td>{vista.navegacion}</td>
+                        </tr>
+                        <tr>
+                          <th>RF</th>
+                          <td>{vista.rf}</td>
+                        </tr>
+                        <tr>
+                          <th>Decisiones</th>
+                          <td>{vista.decisiones}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
+              ))}
+          </div>
+        </section>
         <section id="perfiles">
           <div className="section-heading">
             <div className="eyebrow">

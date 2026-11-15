@@ -2,7 +2,7 @@ import { CSSProperties } from "react";
 
 export const palettes: Record<string, {
   group: string
-  colors: { use: string value: string }[]
+  colors: { use: string; value: string }[]
 }[]> = {
   admin: [
     {
@@ -100,9 +100,10 @@ export const navItems = [
   ["04", "Espaciado"],
   ["05", "Estructura"],
   ["06", "Navegación"],
-  ["07", "Componentes"],
-  ["08", "Criterios de uso"],
-  ["09", "Perfiles"],
+  ["07", "Vistas del sistema"],
+  ["08", "Componentes"],
+  ["10", "Criterios de uso"],
+  ["11", "Perfiles"],
 ]
 
 export const profiles = [

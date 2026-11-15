@@ -3043,6 +3043,126 @@ footer a span {
   border-radius: 4px;
 }
 
+/* ==========================================================================
+   Sección de Vistas
+   ========================================================================== */
+
+.views-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.view-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(42, 37, 41, 0.04), 0 8px 24px rgba(42, 37, 41, 0.05);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.view-row:hover {
+  border-color: color-mix(in srgb, var(--coral) 45%, var(--line));
+  box-shadow: 0 2px 4px rgba(42, 37, 41, 0.05), 0 16px 40px rgba(42, 37, 41, 0.1);
+}
+
+.view-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 1.5rem;
+  background-color: var(--sand);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Estilo para cuando añadas las imágenes reales */
+.view-image img {
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+  display: block;
+  background-color: var(--paper);
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(42, 37, 41, 0.12);
+}
+
+.view-index {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--coral);
+  background-color: color-mix(in srgb, var(--paper) 82%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+
+.view-content {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.view-content h3 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 1.25rem;
+}
+
+.view-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+}
+
+.view-specs-table th,
+.view-specs-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.65rem 0.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.view-specs-table tr:first-child th,
+.view-specs-table tr:first-child td {
+  border-top: none;
+}
+
+.view-specs-table th {
+  width: 160px;
+  font-weight: 600;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.view-specs-table td {
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.view-specs-table tr:hover td {
+  background-color: color-mix(in srgb, var(--sand) 55%, transparent);
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .estructura-split {
