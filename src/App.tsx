@@ -3,9 +3,412 @@ import { BrandIcon, useProfileFavicon } from "./components/BrandIcon"
 import { ComponentShowcase } from "./components/ComponentShowcase"
 import { navItems, palettes, profiles } from "./data/style-guide"
 import { getMermaidDiagram } from './utils/mermaidDiagrams';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { MermaidChart } from './components/MermaidChart';
+const trazabilidadData = [
+  { rf: "RF01", desc: "El sistema permitirá a los usuarios registrarse.", pantalla: "Registro de sesión", vista: "Acceso común · Administrador, demandante y reclutador", estado: "Implementado" },
+  { rf: "RF02", desc: "El sistema permitirá a los demandantes de empleo crear y gestionar su perfil.", pantalla: "Perfil del demandante", vista: "Vista demandante", estado: "Implementado" },
+  { rf: "RF03", desc: "El sistema permitirá a los reclutadores tener y modificar su propio perfil", pantalla: "Perfil del reclutador", vista: "Vista reclutador", estado: "Implementado" },
+  { rf: "RF04", desc: "El sistema permitirá a los reclutadores buscar candidatos mediante filtros.", pantalla: "Búsqueda de perfiles · Filtros", vista: "Vista reclutador", estado: "Implementado" },
+  { rf: "RF05", desc: "El sistema mostrará una lista de candidatos ordenada según los criterios de búsqueda.", pantalla: "Búsqueda de perfiles · Resultados", vista: "Vista reclutador", estado: "Implementado" },
+  { rf: "RF06", desc: "El sistema permitirá gestionar usuarios.", pantalla: "Gestión de usuarios · Crear, borrar y modificar usuario", vista: "Vista administrador", estado: "Implementado" },
+  { rf: "RF07", desc: "El sistema gestionará la toma de decisiones y la importación automática de los perfiles de linkedin y los requerimientos de las ofertas de empleo.", pantalla: "Gestión de Base de datos", vista: "Vista administrador", estado: "Implementado" },
+  { rf: "RF08", desc: "El sistema contará con una vista detallada de un ranking de los requisitos más demandados actualmente en las ofertas de empleo.", pantalla: "Ranking de tecnologías", vista: "Vista demandante", estado: "Implementado" },
+  { rf: "RF09", desc: "El sistema permitirá cambiar entre modo claro y oscuro", pantalla: "Sin pantalla implementada", vista: "Vista administrador, demandante y reclutador", estado: "No implementado" },
+  { rf: "RF10", desc: "El sistema permitirá consultar recursos de estudio desde cada requisito de la vista.", pantalla: "Ranking de tecnologías / Recursos de aprendizaje", vista: "Vista demandante", estado: "Implementado" },
+  { rf: "RF11", desc: "El sistema contará con una vista de ofertas de empleo.", pantalla: "Ofertas de empleo", vista: "Vista demandante", estado: "Implementado" },
+  { rf: "RF12", desc: "El sistema permitirá a los usuarios cambiar el idioma de la interfaz entre español e inglés.", pantalla: "Sin pantalla implementada", vista: "Vista administrador, demandante y reclutador", estado: "No implementado" },
+  { rf: "RF13", desc: "El sistema permitirá iniciar sesión y cerrarla.", pantalla: "Inicio de sesión", vista: "Acceso común · Administrador, demandante y reclutador", estado: "Implementado" },
+  { rf: "RF14", desc: "El sistema permitirá gestionar las ofertas de empleo.", pantalla: "Gestión de Base de datos", vista: "Vista administrador", estado: "Implementado" },
+  { rf: "RF15", desc: "El sistema permitirá gestionar los recursos de aprendizaje.", pantalla: "Gestión de Base de datos", vista: "Vista administrador", estado: "Implementado" },
+  { rf: "RF16", desc: "El sistema permitirá enviar notificaciones si perfiles guardados en favoritos, si sufre alguna modificación.", pantalla: "Sin notificaciones implementadas · Favoritos como referencia", vista: "Vista reclutador", estado: "No implementado" },
+  { rf: "RF17", desc: "El sistema permitirá acceder y gestionar a las bases de datos de los diferentes servicios.", pantalla: "Bases de datos · Tabla / Mapa conceptual", vista: "Vista administrador", estado: "Implementado" },
+  { rf: "RF18", desc: "El sistema tendrá una vista para monitorizar el rendimiento de los diferentes sistemas.", pantalla: "Sin pantalla implementada", vista: "Vista administrador", estado: "No implementado" },
+];
+const recorridosData = [
+  {
+    id: "R0-registro",
+    profile: "all",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R0",
+    title: "R0: Creación de cuenta",
+    subtitle: "Un nuevo usuario se registra en la plataforma para empezar a buscar empleo o reclutar talento.",
+    user: "Nuevo usuario",
+    start: "Pantalla de Inicio de Sesión (enlace «Regístrate»)",
+    expected: "Cuenta creada y acceso al sistema",
+    note: "Ejemplo de uso. El usuario accede al formulario de registro, selecciona su rol y completa sus datos.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Registro de nuevo usuario",
+    flow: [
+      { num: "01", label: "Acceso", title: "Ir al registro", detail: "Pulsar «Regístrate» desde el Login" },
+      { num: "02", label: "Rol", title: "Seleccionar perfil", detail: "Reclutador o Demandante" },
+      { num: "03", label: "Datos", title: "Rellenar formulario", detail: "Nombre, correo, contraseña" },
+      { num: "04", label: "Legal", title: "Aceptar términos", detail: "Marcar casilla de condiciones" },
+      { num: "05", label: "Resultado", title: "Crear cuenta", detail: "Acceso directo a la plataforma", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Inicio de sesión", accion: "Pulsa el enlace «Regístrate» situado en la parte inferior del formulario.", respuesta: "Redirige a la pantalla de creación de cuenta." },
+      { paso: "02", pantalla: "Crear cuenta", accion: "Selecciona el tipo de perfil deseado (Reclutador o Demandante de empleo).", respuesta: "Adapta el contexto del formulario según el rol seleccionado." },
+      { paso: "03", pantalla: "Crear cuenta", accion: "Rellena los campos: Nombre completo, Correo electrónico y Contraseña.", respuesta: "Valida que el correo tenga formato correcto y la contraseña sea segura." },
+      { paso: "04", pantalla: "Crear cuenta", accion: "Marca la casilla «Acepto los términos y condiciones».", respuesta: "Habilita el botón de envío al cumplir los requisitos legales." },
+      { paso: "05", pantalla: "Crear cuenta", accion: "Pulsa el botón «Crear cuenta».", respuesta: "Registra al nuevo usuario en la base de datos y lo redirige automáticamente al inicio de su área privada." },
+    ],
+    reqs: [
+      { code: "RF01 / REGISTRO", title: "Alta de usuarios", desc: "El sistema permitirá a los usuarios registrarse." },
+    ],
+    footerLeft: "TALENTO.DEV / NUEVO USUARIO",
+    footerRight: "R0 · REGISTRO → ACCESO",
+  },
 
+  // ==========================================
+  // PERFIL: DEMANDANTE (candidate)
+  // ==========================================
+  {
+    id: "R1-demandante",
+    profile: "candidate",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R1",
+    title: "R1: De la demanda al aprendizaje",
+    subtitle: "Un demandante de empleo consulta qué tecnologías se piden y accede a un recurso para aprender una de ellas.",
+    user: "Lucía · demandante de empleo",
+    start: "Pantalla de Inicio de Sesión",
+    expected: "Un recurso de React abierto",
+    note: "Ejemplo de uso, no datos reales. Quiere orientar su aprendizaje tras consultar la demanda del mercado.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Tecnología de ejemplo: React",
+    flow: [
+      { num: "01", label: "Acceso", title: "Iniciar sesión", detail: "Usuario y contraseña" },
+      { num: "02", label: "Explorar", title: "Consultar ranking", detail: "Tecnologías y número de ofertas" },
+      { num: "03", label: "Elegir", title: "Seleccionar React", detail: "Acceso a «Recursos»" },
+      { num: "04", label: "Aprender", title: "Ver sus recursos", detail: "Documentación, curso y ejercicios" },
+      { num: "05", label: "Resultado", title: "Abrir documentación", detail: "Comenzar a estudiar React", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Inicio de sesión", accion: "Introduce su correo y contraseña y pulsa «Iniciar sesión».", respuesta: "Valida las credenciales y permite acceder al área del demandante de empleo." },
+      { paso: "02", pantalla: "Ranking de tecnologías", accion: "Consulta el ranking para identificar las tecnologías más demandadas.", respuesta: "Muestra las tecnologías ordenadas y el número de ofertas asociado a cada una." },
+      { paso: "03", pantalla: "Ranking de tecnologías", accion: "Elige React como tecnología de interés y pulsa «Recursos».", respuesta: "Presenta los recursos de aprendizaje relacionados con React." },
+      { paso: "04", pantalla: "Recursos de aprendizaje", accion: "Revisa las opciones y selecciona «Documentación oficial».", respuesta: "Ofrece el acceso al recurso de estudio elegido." },
+      { paso: "05", pantalla: "Documentación oficial (externo)", accion: "Accede a la documentación de React y empieza a consultar sus contenidos.", respuesta: "Abre el recurso seleccionado fuera de Talento.Dev." },
+    ],
+    reqs: [
+      { code: "RF13 / ACCESO", title: "Inicio y cierre de sesión", desc: "El sistema permitirá iniciar sesión y cerrarla." },
+      { code: "RF08 / RANKING", title: "Ranking de requisitos", desc: "El sistema contará con una vista detallada de un ranking de los requisitos más demandados actualmente en las ofertas de empleo." },
+      { code: "RF10 / RECURSOS", title: "Recursos de estudio", desc: "El sistema permitirá consultar recursos de estudio desde cada requisito de la vista." },
+    ],
+    footerLeft: "TALENTO.DEV / DEMANDANTE DE EMPLEO",
+    footerRight: "R1 · CONSULTAR → APRENDER",
+  },
+  {
+    id: "R2-demandante-ofertas",
+    profile: "candidate",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R2",
+    title: "R2: De la búsqueda a la oportunidad",
+    subtitle: "Un demandante de empleo busca ofertas que encajen con su perfil, filtra por sus preferencias y revisa su compatibilidad.",
+    user: "Lucía · demandante de empleo",
+    start: "Navegación principal (área de demandante)",
+    expected: "Ofertas filtradas visualizadas y guardadas en favoritos",
+    note: "Ejemplo de uso, no datos reales. Quiere encontrar ofertas que se ajusten a su stack tecnológico y modalidad preferida.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Búsqueda y filtrado de ofertas",
+    flow: [
+      { num: "01", label: "Acceso", title: "Ir a Ofertas", detail: "Pulsar «Ofertas de empleo» en el menú" },
+      { num: "02", label: "Filtrar", title: "Aplicar filtros", detail: "Tecnología, Ubicación, Modalidad" },
+      { num: "03", label: "Revisar", title: "Consultar tarjeta", detail: "Ver tecnologías y actitudes" },
+      { num: "04", label: "Guardar", title: "Marcar favorito", detail: "Pulsar el icono del corazón", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Navegación principal", accion: "Pulsa la pestaña «Ofertas de empleo» en la barra de navegación superior.", respuesta: "Carga la vista de ofertas mostrando el buscador y el panel de filtros laterales." },
+      { paso: "02", pantalla: "Ofertas de empleo", accion: "Selecciona una tecnología, ubicación y modalidad en los desplegables, o escribe en el buscador.", respuesta: "Filtra el listado de tarjetas en tiempo real y actualiza la puntuación de compatibilidad (ej: 00.00)." },
+      { paso: "03", pantalla: "Ofertas de empleo", accion: "Revisa la información de una tarjeta específica (título, etiquetas de tecnología y actitud).", respuesta: "Muestra los detalles visualmente destacados, facilitando la lectura rápida de los requisitos." },
+      { paso: "04", pantalla: "Ofertas de empleo", accion: "Haz clic en el icono del corazón situado a la derecha de la tarjeta.", respuesta: "Guarda la oferta en la lista de favoritos del demandante y cambia el estado del icono." },
+    ],
+    reqs: [
+      { code: "RF11 / OFERTAS", title: "Vista de ofertas", desc: "El sistema contará con una vista de ofertas de empleo." },
+      { code: "RF02 / PERFIL", title: "Gestión del perfil", desc: "El sistema permitirá a los demandantes de empleo crear y gestionar su perfil. (Base para la compatibilidad)." },
+    ],
+    footerLeft: "TALENTO.DEV / DEMANDANTE DE EMPLEO",
+    footerRight: "R2 · BUSCAR → FILTRAR → GUARDAR",
+  },
+
+  // ==========================================
+  // PERFIL: RECLUTADOR (recruiter)
+  // ==========================================
+  {
+    id: "R1-reclutador",
+    profile: "recruiter",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R1",
+    title: "R1: El reclutador busca y consulta candidatos",
+    subtitle: "De la búsqueda al detalle, los favoritos y la gestión del perfil del reclutador.",
+    user: "Reclutador",
+    start: "Pantalla de Inicio de Sesión",
+    expected: "El reclutador consulta un candidato, revisa sus favoritos y accede a la edición de su perfil.",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Flujo de reclutamiento",
+    flow: [
+      { num: "1", label: "Inicio", title: "Inicio de sesión", detail: "Acceder" },
+      { num: "2", label: "Buscar", title: "Búsqueda de perfiles", detail: "Filtrar candidatos" },
+      { num: "3", label: "Revisar", title: "Detalle del perfil", detail: "Consultar información" },
+      { num: "4", label: "Guardar", title: "Perfiles favoritos", detail: "Revisar guardados" },
+      { num: "5", label: "Gestionar", title: "Perfil del reclutador", detail: "Editar datos" },
+    ],
+    stepsTable: [
+      { paso: "1", pantalla: "Inicio de sesión", accion: "Introduce correo y contraseña y pulsa «Iniciar sesión».", respuesta: "Valida las credenciales y da acceso al área de reclutamiento." },
+      { paso: "2", pantalla: "Búsqueda de perfiles", accion: "Filtra por tecnología, experiencia y ubicación; pulsa «Buscar perfiles».", respuesta: "Muestra candidatos según los criterios, con sus habilidades y puntuación de búsqueda." },
+      { paso: "3", pantalla: "Detalle del perfil", accion: "Abre un candidato de los resultados y revisa su información.", respuesta: "Presenta descripción, tecnologías, habilidades y experiencia del candidato." },
+      { paso: "4", pantalla: "Perfiles favoritos", accion: "Accede a «Perfiles Fav» para revisar los perfiles guardados.", respuesta: "Muestra las tarjetas de favoritos con tecnologías, criterio y puntuación de búsqueda." },
+      { paso: "5", pantalla: "Perfil del reclutador", accion: "Entra en «Mi perfil» y edita sus datos personales.", respuesta: "Ofrece nombre, correo y contraseña, con «Guardar cambios» y «Cancelar»." },
+      { paso: "Alt.", pantalla: "Favoritos sin perfiles", accion: "Accede a favoritos sin perfiles guardados y pulsa «Volver».", respuesta: "Muestra «No hay perfiles, vuelve a la pestaña de búsqueda de perfiles». «Volver» conduce a la búsqueda." },
+    ],
+    reqs: [
+      { code: "RF13 / ACCESO", title: "Inicio y cierre de sesión", desc: "El sistema permitirá iniciar sesión y cerrarla." },
+      { code: "RF04 / BÚSQUEDA", title: "Filtros de búsqueda", desc: "El sistema permitirá a los reclutadores buscar candidatos mediante filtros." },
+      { code: "RF05 / LISTA", title: "Listado de candidatos", desc: "El sistema mostrará una lista de candidatos ordenada según los criterios de búsqueda." },
+      { code: "RF16 / FAVORITOS", title: "Notificaciones de favoritos", desc: "El sistema permitirá enviar notificaciones si perfiles guardados en favoritos, si sufre alguna modificación." },
+      { code: "RF03 / PERFIL", title: "Perfil del reclutador", desc: "El sistema permitirá a los reclutadores tener y modificar su propio perfil." },
+    ],
+    footerLeft: "TALENTO.DEV / RECLUTADOR",
+    footerRight: "R1 · BUSCAR → CONSULTAR → GESTIONAR",
+  },
+
+  // ==========================================
+  // PERFIL: ADMINISTRADOR (admin)
+  // ==========================================
+  {
+    id: "R1-tickets-login",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R1",
+    title: "R1: Acceso al panel de administración",
+    subtitle: "Un agente o administrador accede al sistema introduciendo sus credenciales para gestionar tickets o usuarios.",
+    user: "Agente / Administrador",
+    start: "Pantalla de Inicio de Sesión",
+    expected: "Acceso concedido al Panel Principal",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Inicio de Sesión",
+    flow: [
+      { num: "01", label: "Entrada", title: "Introducir credenciales", detail: "Usuario y contraseña" },
+      { num: "02", label: "Validación", title: "Pulsar «Entrar»", detail: "Sistema comprueba la BD" },
+      { num: "03", label: "Redirección", title: "Acceso permitido", detail: "Carga del Panel Principal", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Inicio de sesión", accion: "Introduce su nombre de usuario y contraseña.", respuesta: "Muestra los campos de entrada y el botón de acceso." },
+      { paso: "02", pantalla: "Inicio de sesión", accion: "Pulsa el botón «Entrar».", respuesta: "Valida las credenciales. Si son correctas, redirige al Panel Principal; si no, muestra error." },
+    ],
+    reqs: [
+      { code: "RF13 / ACCESO", title: "Inicio y cierre de sesión", desc: "El sistema permitirá iniciar sesión y cerrarla." },
+    ],
+    footerLeft: "TALENTO.DEV / LOGIN",
+    footerRight: "R1 · INICIAR SESIÓN",
+  },
+  {
+    id: "R2-tickets-crear",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R2",
+    title: "R2: De la incidencia a la resolución",
+    subtitle: "Un agente de soporte registra un nuevo ticket para dar respuesta a un problema técnico reportado por un usuario.",
+    user: "Agente de Soporte",
+    start: "Panel Principal (Sesión Iniciada)",
+    expected: "Ticket creado y registrado",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Creación de Ticket",
+    flow: [
+      { num: "01", label: "Acceso", title: "Pulsar «Nuevo Ticket»", detail: "Botón superior" },
+      { num: "02", label: "Registro", title: "Rellenar formulario", detail: "Título, Cat., Prioridad, Desc." },
+      { num: "03", label: "Guardar", title: "Pulsar «Guardar»", detail: "Sistema valida campos" },
+      { num: "04", label: "Confirmación", title: "Ver ticket en la lista", detail: "Se actualiza la base de datos", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Panel Principal", accion: "Pulsa el botón «Nuevo Ticket» en la barra superior.", respuesta: "Abre el formulario de creación de ticket." },
+      { paso: "02", pantalla: "Formulario «Nuevo Ticket»", accion: "Introduce Título, Categoría, Prioridad, Estado y Descripción.", respuesta: "Muestra los campos obligatorios y valida." },
+      { paso: "03", pantalla: "Formulario «Nuevo Ticket»", accion: "Pulsa el botón «Guardar».", respuesta: "Procesa la información, genera un ID (ej: TK-001) y registra el ticket." },
+      { paso: "04", pantalla: "Lista de Tickets", accion: "Visualiza la lista de tickets.", respuesta: "Muestra el nuevo ticket en la tabla con el estado actual." },
+    ],
+    reqs: [], // La tabla RF no especifica un requisito de tickets
+    footerLeft: "TALENTO.DEV / AGENTE DE SOPORTE",
+    footerRight: "R2 · CREAR TICKET",
+  },
+  {
+    id: "R3-tickets-responder",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R3",
+    title: "R3: Respuesta a un ticket",
+    subtitle: "Un agente de soporte lee un ticket pendiente y envía una respuesta al usuario.",
+    user: "Agente de Soporte",
+    start: "Lista de Tickets",
+    expected: "Respuesta enviada y registrada en el historial",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Conversación del Ticket",
+    flow: [
+      { num: "01", label: "Selección", title: "Abrir ticket", detail: "Desde la lista de tickets" },
+      { num: "02", label: "Lectura", title: "Revisar historial", detail: "Leer mensajes previos" },
+      { num: "03", label: "Redacción", title: "Escribir respuesta", detail: "Campo de texto al pie" },
+      { num: "04", label: "Envío", title: "Pulsar «Enviar»", detail: "Sistema notifica al usuario", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Lista de Tickets", accion: "Selecciona un ticket y hace clic en «Abrir Ticket».", respuesta: "Carga la vista detallada con el historial de conversación." },
+      { paso: "02", pantalla: "Detalle del Ticket", accion: "Revisa el problema planteado por el usuario en el hilo.", respuesta: "Muestra los mensajes anteriores ordenados cronológicamente." },
+      { paso: "03", pantalla: "Detalle del Ticket", accion: "Escribe una respuesta en el cuadro de texto inferior.", respuesta: "Habilita el botón de «Enviar»." },
+      { paso: "04", pantalla: "Detalle del Ticket", accion: "Pulsa «Enviar».", respuesta: "Añade el nuevo mensaje al hilo y actualiza el estado del ticket a «En Proceso» o «Resuelto»." },
+    ],
+    reqs: [],
+    footerLeft: "TALENTO.DEV / AGENTE DE SOPORTE",
+    footerRight: "R3 · RESPONDER TICKET",
+  },
+  {
+    id: "R4-tickets-modificar",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R4",
+    title: "R4: Modificación de un ticket existente",
+    subtitle: "Un agente actualiza los datos de un ticket (prioridad, categoría o estado) según la evolución de la incidencia.",
+    user: "Agente de Soporte",
+    start: "Lista de Tickets",
+    expected: "Ticket actualizado correctamente",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Edición de Ticket",
+    flow: [
+      { num: "01", label: "Selección", title: "Seleccionar ticket", detail: "Desde la tabla" },
+      { num: "02", label: "Edición", title: "Cambiar campos", detail: "Prioridad, categoría, estado" },
+      { num: "03", label: "Guardado", title: "Pulsar «Guardar»", detail: "Sistema valida" },
+      { num: "04", label: "Refresco", title: "Ver cambios", detail: "Tabla actualizada", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Lista de Tickets", accion: "Selecciona el ticket a modificar y pulsa «Editar».", respuesta: "Abre el formulario de edición con los datos actuales del ticket." },
+      { paso: "02", pantalla: "Formulario «Editar Ticket»", accion: "Modifica la Prioridad (ej: de Baja a Alta) o la Categoría.", respuesta: "Permite cambiar los valores de los desplegables." },
+      { paso: "03", pantalla: "Formulario «Editar Ticket»", accion: "Pulsa «Guardar Cambios».", respuesta: "Valida la información y actualiza el registro en la base de datos." },
+      { paso: "04", pantalla: "Lista de Tickets", accion: "Comprueba la tabla.", respuesta: "Muestra los datos actualizados del ticket en la tabla." },
+    ],
+    reqs: [],
+    footerLeft: "TALENTO.DEV / AGENTE DE SOPORTE",
+    footerRight: "R4 · MODIFICAR TICKET",
+  },
+  {
+    id: "R5-tickets-crear-usuario",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R5",
+    title: "R5: Alta de un nuevo usuario",
+    subtitle: "Un administrador registra a un nuevo usuario en el sistema para que pueda acceder a la plataforma.",
+    user: "Administrador",
+    start: "Gestión de Usuarios",
+    expected: "Usuario registrado en el sistema",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Crear Usuario",
+    flow: [
+      { num: "01", label: "Acceso", title: "Pulsar «Gestión de usuarios»", detail: "Barra superior" },
+      { num: "02", label: "Crear", title: "Pulsar «Crear usuario»", detail: "Botón en el panel lateral" },
+      { num: "03", label: "Registro", title: "Rellenar formulario", detail: "Nombre, email, rol, etc." },
+      { num: "04", label: "Confirmación", title: "Pulsar «Guardar usuario»", detail: "Sistema registra al usuario", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Panel Principal", accion: "Pulsa el botón «Gestión de usuarios».", respuesta: "Muestra la pantalla de gestión con el buscador y la lista de usuarios." },
+      { paso: "02", pantalla: "Gestión de Usuarios", accion: "Pulsa el botón «Crear usuario».", respuesta: "Despliega el formulario de creación de usuario." },
+      { paso: "03", pantalla: "Formulario «Crear Usuario»", accion: "Rellena los campos (Nombre, Apellidos, Email, Rol, etc.).", respuesta: "Valida los campos introducidos." },
+      { paso: "04", pantalla: "Formulario «Crear Usuario»", accion: "Pulsa el botón «Guardar usuario».", respuesta: "Registra al usuario, le asigna un ID y lo añade a la tabla." },
+    ],
+    reqs: [
+      { code: "RF06 / GESTIÓN", title: "Gestión de usuarios", desc: "El sistema permitirá gestionar usuarios." },
+    ],
+    footerLeft: "TALENTO.DEV / ADMINISTRADOR",
+    footerRight: "R5 · CREAR USUARIO",
+  },
+  {
+    id: "R6-tickets-modificar-usuario",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R6",
+    title: "R6: Modificación de un usuario",
+    subtitle: "Un administrador actualiza los datos de un usuario existente en el sistema.",
+    user: "Administrador",
+    start: "Gestión de Usuarios",
+    expected: "Datos del usuario actualizados",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Modificar Usuario",
+    flow: [
+      { num: "01", label: "Acceso", title: "Pulsar «Gestión de usuarios»", detail: "Barra superior" },
+      { num: "02", label: "Selección", title: "Buscar y seleccionar", detail: "Elegir de la lista" },
+      { num: "03", label: "Edición", title: "Pulsar «Modificar usuario»", detail: "Cambiar datos en formulario" },
+      { num: "04", label: "Guardado", title: "Pulsar «Guardar cambios»", detail: "Sistema actualiza la BD", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Panel Principal", accion: "Pulsa el botón «Gestión de usuarios».", respuesta: "Muestra la pantalla de gestión con el buscador y la lista de usuarios." },
+      { paso: "02", pantalla: "Lista de Usuarios", accion: "Busca al usuario y pulsa sobre él para seleccionarlo.", respuesta: "Resalta la fila del usuario seleccionado." },
+      { paso: "03", pantalla: "Lista de Usuarios", accion: "Pulsa el botón «Modificar usuario».", respuesta: "Abre el formulario de edición con los datos precargados." },
+      { paso: "04", pantalla: "Formulario «Modificar Usuario»", accion: "Modifica los campos necesarios y pulsa «Guardar cambios».", respuesta: "Valida los datos, actualiza la base de datos y muestra un mensaje de éxito." },
+    ],
+    reqs: [
+      { code: "RF06 / GESTIÓN", title: "Gestión de usuarios", desc: "El sistema permitirá gestionar usuarios." },
+    ],
+    footerLeft: "TALENTO.DEV / ADMINISTRADOR",
+    footerRight: "R6 · MODIFICAR USUARIO",
+  },
+  {
+    id: "R7-tickets-bd",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R7",
+    title: "R7: Consulta de la base de datos",
+    subtitle: "Un administrador accede a la vista tabular para consultar los registros almacenados en el sistema.",
+    user: "Administrador",
+    start: "Panel Principal",
+    expected: "Visualización de la tabla de registros",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Buscar de datos",
+    flow: [
+      { num: "01", label: "Acceso", title: "Pulsar «Buscar de datos»", detail: "Barra superior" },
+      { num: "02", label: "Visualización", title: "Ver tabla", detail: "Datos tabulados" },
+      { num: "03", label: "Consulta", title: "Revisar registros", detail: "IDs, nombres, fechas, etc.", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Panel Principal", accion: "Pulsa el botón «Buscar de datos».", respuesta: "Muestra la vista de base de datos con la tabla de registros." },
+      { paso: "02", pantalla: "Base de Datos > Tabla", accion: "Consulta los registros almacenados (ID, Nombre, Teléfono, etc.).", respuesta: "Muestra los datos tabulados de forma ordenada." },
+    ],
+    reqs: [
+      { code: "RF17 / BASES DE DATOS", title: "Acceso a bases de datos", desc: "El sistema permitirá acceder y gestionar a las bases de datos de los diferentes servicios." },
+    ],
+    footerLeft: "TALENTO.DEV/ ADMINISTRADOR",
+    footerRight: "R7 · CONSULTAR BD",
+  },
+  {
+    id: "R8-tickets-mapa",
+    profile: "admin",
+    systemTag: "TALENTO.DEV",
+    journeyCode: "RECORRIDO R8",
+    title: "R8: Consulta del mapa conceptual",
+    subtitle: "Un administrador genera y visualiza un diagrama de entidades y relaciones a partir de la base de datos.",
+    user: "Administrador",
+    start: "Vista de Base de Datos",
+    expected: "Visualización del Mapa Conceptual",
+    note: "Ejemplo de uso, no datos reales.",
+    flowTitle: "Secuencia principal",
+    flowSubtitle: "Mapa Conceptual",
+    flow: [
+      { num: "01", label: "Acceso", title: "Ir a Base de Datos", detail: "Pulsar «Buscar de datos»" },
+      { num: "02", label: "Generación", title: "Pulsar «Mapa conceptual»", detail: "Botón superior derecho" },
+      { num: "03", label: "Visualización", title: "Ver diagrama", detail: "Entidades y relaciones", isFinal: true },
+    ],
+    stepsTable: [
+      { paso: "01", pantalla: "Base de Datos > Tabla", accion: "Pulsa el botón «Mapa conceptual».", respuesta: "Procesa la estructura de la base de datos para generar el diagrama." },
+      { paso: "02", pantalla: "Mapa Conceptual", accion: "Visualiza el mapa generado.", respuesta: "Muestra las entidades (Usuarios, Tickets) y sus relaciones visualmente." },
+    ],
+    reqs: [
+      { code: "RF17 / BASES DE DATOS", title: "Acceso a bases de datos", desc: "El sistema permitirá acceder y gestionar a las bases de datos de los diferentes servicios." },
+    ],
+    footerLeft: "TALENTO.DEV / ADMINISTRADOR",
+    footerRight: "R8 · MAPA CONCEPTUAL",
+  }
+];
 const vistasData = [
   {
     id: "iniciar-sesion",
@@ -348,9 +751,9 @@ export default function App() {
 
       <aside className="sidebar">
         <nav aria-label="Secciones de la guía">
-          {navItems.map(([number, label], index) => (
+          {navItems.map(([number, label, slug], index) => (
             <a
-              href={`#${label.toLowerCase().replaceAll(" ", "-")}`}
+              href={`#${slug}`}
               className={index === 0 ? "active" : ""}
               key={label}
             >
@@ -935,11 +1338,11 @@ export default function App() {
         <section id="criterios-de-uso">
           <div className="section-heading">
             <div className="eyebrow">
-              <span>06</span> Criterios de uso
+              <span>08</span> Criterios de uso
             </div>
           </div>
           <div className="identity-block">
-            <h2>6.1 Componentes</h2>
+            <h2>8.1 Componentes</h2>
             <div className="identity-table-wrap">
               <table className="identity-table usage-table">
                 <thead>
@@ -964,7 +1367,7 @@ export default function App() {
             </div>
           </div>
           <div className="identity-block">
-            <h2>6.2 Tipografía</h2>
+            <h2>8.2 Tipografía</h2>
             <div className="identity-table-wrap">
               <table className="identity-table usage-table">
                 <thead>
@@ -1010,7 +1413,7 @@ export default function App() {
         <section id="vistas">
           <div className="section-heading">
             <div className="eyebrow">
-              <span>07</span> Vistas del sistema
+              <span>09</span> Vistas del sistema
             </div>
             <p>
               Explora las pantallas principales disponibles para el perfil activo: <strong>{profile === "candidate" ? "Demandante" : profile === "recruiter" ? "Reclutador" : "Administrador"}</strong>.
@@ -1059,10 +1462,174 @@ export default function App() {
               ))}
           </div>
         </section>
+        {/* ========================================================= */}
+        {/* SECCIÓN 08: RECORRIDOS DE USUARIO */}
+        {/* ========================================================= */}
+        <section id="recorridos">
+          <div className="section-heading">
+            <div className="eyebrow">
+              <span>10</span> Recorridos de Usuario
+            </div>
+            <p>
+              Flujos de interacción detallados para el perfil activo: <strong>
+                {profile === "candidate" ? "Demandante" : profile === "recruiter" ? "Reclutador" : "Administrador"}
+              </strong>.
+            </p>
+          </div>
+
+          <div className="document-container">
+            {recorridosData
+              // Actualizamos esta línea para aceptar "all"
+              .filter((recorrido) => recorrido.profile === profile || recorrido.profile === "all")
+              .map((recorrido, index) => (
+                <article className="journey" key={recorrido.id}>
+                  {/* ... resto del código del recorrido ... */}
+                  <div className="journey-header">
+                    <span className="system-tag">{recorrido.systemTag}</span>
+                    <span>{recorrido.journeyCode}</span>
+                  </div>
+
+                  <h2 className="journey-title">{recorrido.title}</h2>
+                  <p className="journey-subtitle">{recorrido.subtitle}</p>
+
+                  <div className="meta-grid">
+                    <div className="meta-item">
+                      <h4>Usuario</h4>
+                      <p>{recorrido.user}</p>
+                    </div>
+                    <div className="meta-item">
+                      <h4>Punto de partida</h4>
+                      <p>{recorrido.start}</p>
+                    </div>
+                    <div className="meta-item">
+                      <h4>Resultado esperado</h4>
+                      <p>{recorrido.expected}</p>
+                    </div>
+                  </div>
+                  <p className="meta-note">{recorrido.note}</p>
+
+                  <div className="section-label">01 / {recorrido.flowTitle}</div>
+                  <div className="section-title">{recorrido.flowSubtitle}</div>
+
+                  <div className="flow-container">
+                    {recorrido.flow.map((step, i) => (
+                      <div className="flow-step" key={i} style={{ background: step.isFinal ? 'var(--forest)' : '#fafafa', color: step.isFinal ? 'white' : 'inherit' }}>
+                        <h3 style={{ color: step.isFinal ? 'rgba(255,255,255,0.7)' : 'var(--text-muted)' }}>{step.num} / {step.label}</h3>
+                        <p>{step.title}</p>
+                        <small style={{ color: step.isFinal ? 'rgba(255,255,255,0.9)' : 'var(--text-muted)' }}>{step.detail}</small>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="section-label" style={{ marginTop: '40px' }}>02 / Paso a paso</div>
+                  <div className="section-title">Acción del usuario + Respuesta del sistema</div>
+
+                  <table className="step-table">
+                    <thead>
+                      <tr>
+                        <th>Paso</th>
+                        <th>Pantalla</th>
+                        <th>Acción del usuario</th>
+                        <th>Respuesta del sistema</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recorrido.stepsTable.map((step, i) => (
+                        <tr key={i}>
+                          <td>{step.paso}</td>
+                          <td>{step.pantalla}</td>
+                          <td>{step.accion}</td>
+                          <td>{step.respuesta}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  {recorrido.reqs.length > 0 && (
+                    <>
+                      <div className="section-label" style={{ marginTop: '40px' }}>03 / Requisitos funcionales relacionados</div>
+                      <div className="req-grid">
+                        {recorrido.reqs.map((req, i) => (
+                          <div className="req-item" key={i}>
+                            <span className="req-code">{req.code}</span>
+                            <div className="req-title">{req.title}</div>
+                            <p className="req-desc">{req.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  <div className="journey-footer">
+                    <span>{recorrido.footerLeft}</span>
+                    <span>{recorrido.footerRight}</span>
+                  </div>
+                </article>
+              ))}
+          </div>
+        </section>
+        {/* ========================================================= */}
+        {/* SECCIÓN 09: TRAZABILIDAD FUNCIONAL */}
+        {/* ========================================================= */}
+        <section id="trazabilidad">
+          <div className="section-heading">
+            <div className="eyebrow">
+              <span>11</span> Trazabilidad Funcional
+            </div>
+            <p>
+              Estado de los requisitos funcionales del sistema, mapeados con las pantallas que los implementan y el perfil de usuario implicado.
+            </p>
+          </div>
+
+          {/* Resumen de Estado */}
+          <div className="trace-summary">
+            <div className="trace-summary-item">
+              <span className="trace-number">18</span>
+              <span className="trace-label">Requisitos</span>
+            </div>
+            <div className="trace-summary-item">
+              <span className="trace-number success">14</span>
+              <span className="trace-label">Implementados</span>
+            </div>
+            <div className="trace-summary-item">
+              <span className="trace-number danger">4</span>
+              <span className="trace-label">No implementados</span>
+            </div>
+          </div>
+
+          <div className="identity-table-wrap">
+            <table className="identity-table trace-table">
+              <thead>
+                <tr>
+                  <th scope="col" style={{ width: '8%' }}>RF</th>
+                  <th scope="col" style={{ width: '35%' }}>Requisito funcional</th>
+                  <th scope="col" style={{ width: '25%' }}>Pantalla que lo implementa</th>
+                  <th scope="col" style={{ width: '22%' }}>Vista</th>
+                  <th scope="col" style={{ width: '10%', textAlign: 'center' }}>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trazabilidadData.map((item) => (
+                  <tr key={item.rf}>
+                    <td style={{ fontWeight: 'bold', fontFamily: 'monospace' }}>{item.rf}</td>
+                    <td>{item.desc}</td>
+                    <td style={{ color: 'var(--text-main)' }}>{item.pantalla}</td>
+                    <td style={{ color: 'var(--muted)', fontSize: '0.85rem' }}>{item.vista}</td>
+                    <td style={{ textAlign: 'center' }}>
+                      <span className={`status-badge ${item.estado === 'Implementado' ? 'status-success' : 'status-danger'}`}>
+                        {item.estado}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
         <section id="perfiles">
           <div className="section-heading">
             <div className="eyebrow">
-              <span>07</span> Perfiles
+              <span>12</span> Perfiles
             </div>
             <p>
               Cada perfil tiene su propio color para que la persona sepa siempre

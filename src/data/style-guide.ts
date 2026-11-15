@@ -94,16 +94,18 @@ export const palettes: Record<string, {
 }
 
 export const navItems = [
-  ["01", "Fundamentos"],
-  ["02", "Color"],
-  ["03", "Tipografía"],
-  ["04", "Espaciado"],
-  ["05", "Estructura"],
-  ["06", "Navegación"],
-  ["07", "Vistas del sistema"],
-  ["08", "Componentes"],
-  ["10", "Criterios de uso"],
-  ["11", "Perfiles"],
+  ["01", "Fundamentos", "fundamentos"],
+  ["02", "Color", "color"],
+  ["03", "Tipografía", "tipografía"],
+  ["04", "Espaciado", "espaciado"],
+  ["05", "Estructura", "estructura"],
+  ["06", "Navegación", "navegación"],
+  ["07", "Componentes", "componentes"],
+  ["08", "Criterios de uso", "criterios-de-uso"],
+  ["09", "Vistas del sistema", "vistas"],
+  ["10", "Recorridos de usuario", "recorridos"],
+  ["11", "Trazabilidad funcional", "trazabilidad"],
+  ["12", "Perfiles", "perfiles"],
 ]
 
 export const profiles = [
