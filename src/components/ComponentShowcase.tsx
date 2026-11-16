@@ -36,7 +36,7 @@ export function ComponentShowcase() {
     <section id="componentes">
       <div className="section-heading">
         <div className="eyebrow">
-          <span>05</span> Componentes
+          <span>07</span> Componentes
         </div>
         <p>
           Piezas simples y accesibles que mantienen el lenguaje del sistema en

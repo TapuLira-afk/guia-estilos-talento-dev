@@ -9,7 +9,7 @@ Guía de estilo interactiva de **Talento.Dev**, una plataforma de gestión de ta
 - **Diseño responsive**: Adaptación automática a diferentes tamaños de pantalla
 - **Modo oscuro / claro**: Cambio de tema con transiciones suaves
 - **Tres perfiles de marca**: Paleta e iconografía según el rol (Administrador, Reclutador, Demandante)
-- **Guía completa en 7 secciones**: Fundamentos, Color, Tipografía, Espaciado, Componentes, Criterios de uso, Perfiles
+- **Guía completa en 12 secciones**: Fundamentos, Color, Tipografía, Espaciado, Estructura general, Mapa de navegación, Componentes, Criterios de uso, Vistas del sistema, Recorridos de Usuario, Trazabilidad Funcional, Perfiles
 - **Copiado de colores**: Un clic para copiar cualquier valor hex al portapapeles
 - **Exportación PDF**: Botón "Descargar PDF" que abre el diálogo de impresión del navegador
 - **Favicon dinámico**: El icono de la pestaña cambia según el perfil seleccionado
@@ -25,12 +25,12 @@ guia-estilos-talento-dev/
 │   └── favicon.svg
 ├── src/
 │   ├── main.tsx              # Punto de entrada; monta <App /> en #root
-│   ├── App.tsx               # Componente principal: header, sidebar y 7 secciones
+│   ├── App.tsx               # Componente principal: header, sidebar y 12 secciones
 │   ├── index.css             # Estilos globales, variables CSS por perfil y tema
 │   ├── vite-env.d.ts         # Declaraciones de tipos de Vite
 │   ├── components/
 │   │   ├── BrandIcon.tsx     # Icono de marca (penguin) + hook de favicon dinámico
-│   │   └── ComponentShowcase.tsx  # Sección 05: botones, campos, estados, mensajes, etiquetas
+│   │   └── ComponentShowcase.tsx  # Sección 07: botones, campos, estados, mensajes, etiquetas
 │   └── data/
 │       └── style-guide.ts    # Paletas de colores, items de navegación y perfiles
 ├── index.html                # Shell HTML con #root y carga de main.tsx
@@ -84,9 +84,14 @@ En el contexto de **Figma Make** el servidor de Vite ya está corriendo y se acc
 | 02 | Color | Paletas por perfil (primarios, secundarios, neutros) con copiado hex |
 | 03 | Tipografía | Escala tipográfica, Playfair Display e Inter |
 | 04 | Espaciado | Sistema de espaciado y grid |
-| 05 | Componentes | Botones, campos, estados, mensajes, etiquetas de tecnología |
-| 06 | Criterios de uso | Tablas de correspondencia: componente → perfil, tipografía → licencia |
-| 07 | Perfiles | Tarjetas interactivas para previsualizar cada perfil de marca |
+| 05 | Estructura general | Dos áreas: consulta/exploración vs. gestión, con accesos por rol |
+| 06 | Mapa de navegación | Diagrama Mermaid del flujo según el perfil activo |
+| 07 | Componentes | Botones, campos, estados, mensajes, etiquetas de tecnología |
+| 08 | Criterios de uso | Tablas de correspondencia: componente → perfil, tipografía → licencia |
+| 09 | Vistas del sistema | Pantallas principales con objetivo y acciones por perfil |
+| 10 | Recorridos de Usuario | Flujos paso a paso por rol con pantalla y respuesta esperada |
+| 11 | Trazabilidad Funcional | Requisitos funcionales (RF) mapeados a pantallas y perfiles |
+| 12 | Perfiles | Tarjetas interactivas para previsualizar cada perfil de marca |
 
 ## Autores
 
