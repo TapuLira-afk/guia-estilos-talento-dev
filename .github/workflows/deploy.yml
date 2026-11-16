@@ -24,7 +24,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  lfs: true # <-- CLAVE: descarga los PNG reales, no los punteros
+                  lfs: true
 
             - name: Verify LFS files
               run: |
