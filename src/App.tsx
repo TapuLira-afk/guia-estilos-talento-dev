@@ -763,7 +763,7 @@ export default function App() {
                 <article className="view-row" key={vista.id}>
                   <div className="view-image">
                     <span className="view-index">{String(index + 1).padStart(2, '0')}</span>
-                    <img src={`/public/images/${vista.imgName}`} alt={vista.title} loading="lazy" />
+                    <img src={`./public/images/${vista.imgName}`} alt={vista.title} loading="lazy" />
                   </div>
 
                   <div className="view-content">
